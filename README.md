@@ -19,4 +19,3 @@ Built with [Gatsby](https://www.gatsbyjs.com/) static site generator and [Chakra
 3.  **View the running development site at:**
 
     http://localhost:8000
-# azure-rest-api-code-samples
