@@ -2,7 +2,7 @@ const fs = require('fs');
 const generator = require('../OACodeSampleGenerator'); // a temporary solution until we release the package on npm
 
 (async () => {
-  // Pass in a specification URL as a third command line argument -> node writeSiteSample url
+  // Pass in a specification URL as a third command line argument -> node generateSample url
 
   try {
     const output = await generator(process.argv[2]);
