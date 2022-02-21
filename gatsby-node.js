@@ -3,8 +3,8 @@ const path = require(`path`);
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions;
 
-  const versionPage = path.resolve('src/pages/version.js');
-  const operationPage = path.resolve('src/pages/operation.js');
+  const versionPage = path.resolve('src/templates/version.js');
+  const operationPage = path.resolve('src/templates/operation.js');
 
   return graphql(`
     query {
