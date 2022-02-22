@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link as GatsbyLink, useStaticQuery, graphql } from 'gatsby';
-import { Box, Flex, Divider, Heading, Text, Link } from '@chakra-ui/react';
+import { Box, Flex, Divider, Heading, Link } from '@chakra-ui/react';
 
 const Layout = ({ pageTitle, children }) => {
   const data = useStaticQuery(graphql`
@@ -15,7 +15,6 @@ const Layout = ({ pageTitle, children }) => {
           node {
             apiInfo {
               title
-              version
             }
           }
         }
@@ -24,15 +23,9 @@ const Layout = ({ pageTitle, children }) => {
   `);
 
   const services = [];
-
   for (const edge of data.allSamplesJson.edges) {
-    const { title, version } = edge.node.apiInfo;
-    const service = services.find((s) => s.title === title);
-    if (service) {
-      service.versions.push(version);
-    } else {
-      services.push({ title, versions: [version] });
-    }
+    const { title } = edge.node.apiInfo;
+    if (!services.find((s) => s === title)) services.push(title);
   }
 
   return (
@@ -48,16 +41,11 @@ const Layout = ({ pageTitle, children }) => {
           <Heading fontSize={20} mb={5}>
             Services
           </Heading>
-          {services.map(({ title, versions }) => (
+          {services.map((title) => (
             <Box key={title}>
-              <Text>{title}</Text>
-              <Flex direction='column'>
-                {versions.map((version) => (
-                  <Link as={GatsbyLink} to={`/service/${title}/${version}`} key={title + version}>
-                    {version}
-                  </Link>
-                ))}
-              </Flex>
+              <Link as={GatsbyLink} to={`/service/${title}`}>
+                {title}
+              </Link>
               <Divider my={2} />
             </Box>
           ))}

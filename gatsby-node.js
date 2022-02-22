@@ -3,6 +3,7 @@ const path = require(`path`);
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions;
 
+  const servicePage = path.resolve('src/templates/service.js');
   const versionPage = path.resolve('src/templates/version.js');
   const operationPage = path.resolve('src/templates/operation.js');
 
@@ -32,30 +33,51 @@ exports.createPages = ({ graphql, actions }) => {
   `).then((result) => {
     if (result.errors) throw result.errors;
 
+    const services = [];
+
     result.data.allSamplesJson.edges.forEach((edge) => {
       const { apiInfo, generated } = edge.node;
+      const { title, version } = apiInfo;
+
+      const service = services.find((s) => s.title === title);
+      if (service) {
+        service.versions.push(version);
+      } else {
+        services.push({ title, versions: [version] });
+      }
 
       createPage({
-        path: `service/${apiInfo.title}/${apiInfo.version}`,
+        path: `service/${title}/${version}`,
         component: versionPage,
         context: {
-          service: apiInfo.title,
-          version: apiInfo.version,
+          service: title,
+          version,
           generated,
         },
       });
 
       generated.forEach((operation) =>
         createPage({
-          path: `service/${apiInfo.title}/${apiInfo.version}/${operation.operationId}`,
+          path: `service/${title}/${version}/${operation.operationId}`,
           component: operationPage,
           context: {
-            service: apiInfo.title,
-            version: apiInfo.version,
+            service: title,
+            version,
             operation,
           },
         })
       );
+    });
+
+    services.forEach(({ title, versions }) => {
+      createPage({
+        path: `service/${title}`,
+        component: servicePage,
+        context: {
+          title,
+          versions,
+        },
+      });
     });
   });
 };
