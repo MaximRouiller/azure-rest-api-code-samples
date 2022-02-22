@@ -4,9 +4,9 @@ import { ExternalLinkIcon } from '@chakra-ui/icons';
 
 import Layout from '../components/layout';
 
-const IndexPage = () => {
+const IndexPage = ({ location }) => {
   return (
-    <Layout pageTitle='Home - Code Samples for Azure REST API'>
+    <Layout pageTitle='Home - Code Samples for Azure REST API' location={location}>
       <Text mb={2}>
         Pick an Azure service and one of its operations to view code samples for its REST API.
       </Text>

@@ -47,7 +47,7 @@ exports.createPages = ({ graphql, actions }) => {
       }
 
       createPage({
-        path: `service/${title}/${version}`,
+        path: `${title}/${version}`,
         component: versionPage,
         context: {
           service: title,
@@ -58,7 +58,7 @@ exports.createPages = ({ graphql, actions }) => {
 
       generated.forEach((operation) =>
         createPage({
-          path: `service/${title}/${version}/${operation.operationId}`,
+          path: `${title}/${version}/${operation.operationId}`,
           component: operationPage,
           context: {
             service: title,
@@ -71,7 +71,7 @@ exports.createPages = ({ graphql, actions }) => {
 
     services.forEach(({ title, versions }) => {
       createPage({
-        path: `service/${title}`,
+        path: title,
         component: servicePage,
         context: {
           title,

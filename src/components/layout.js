@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link as GatsbyLink, useStaticQuery, graphql } from 'gatsby';
 import { Box, Flex, Divider, Heading, Link } from '@chakra-ui/react';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 
-const Layout = ({ pageTitle, children }) => {
+const Layout = ({ pageTitle, children, location }) => {
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -28,6 +29,11 @@ const Layout = ({ pageTitle, children }) => {
     if (!services.find((s) => s === title)) services.push(title);
   }
 
+  const crumbs = [{ crumb: '', link: '' }];
+  for (const crumb of [...new Set(location.pathname.split('/'))]) {
+    crumbs.push({ crumb, link: crumbs[crumbs.length - 1].link + '/' + crumb });
+  }
+
   return (
     <Box m='auto' w='fit-content' p={5}>
       <title>
@@ -36,6 +42,15 @@ const Layout = ({ pageTitle, children }) => {
       <GatsbyLink to='/'>
         <Heading fontSize={25}>Azure REST API Code Samples</Heading>
       </GatsbyLink>
+      <Breadcrumb mt={2}>
+        {crumbs.slice(1).map(({ crumb, link }) => (
+          <BreadcrumbItem key={crumb} isCurrentPage={link.slice(1) === location.pathname}>
+            <BreadcrumbLink as={GatsbyLink} to={link !== '/' ? link.slice(1) : link}>
+              {crumb || 'Home'}
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+        ))}
+      </Breadcrumb>
       <Flex mt={5}>
         <Flex direction='column'>
           <Heading fontSize={20} mb={5}>
@@ -43,7 +58,7 @@ const Layout = ({ pageTitle, children }) => {
           </Heading>
           {services.map((title) => (
             <Box key={title}>
-              <Link as={GatsbyLink} to={`/service/${title}`}>
+              <Link as={GatsbyLink} to={`/${title}`}>
                 {title}
               </Link>
               <Divider my={2} />

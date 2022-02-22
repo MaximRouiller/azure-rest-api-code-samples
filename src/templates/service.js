@@ -4,11 +4,11 @@ import { Box, Flex, Divider, Link } from '@chakra-ui/react';
 
 import Layout from '../components/layout';
 
-const ServicePage = ({ pageContext }) => {
+const ServicePage = ({ pageContext, location }) => {
   const { title, versions } = pageContext;
 
   return (
-    <Layout pageTitle={title}>
+    <Layout pageTitle={title} location={location}>
       <Flex direction='column'>
         {versions
           .sort((a, b) => new Date(b) - new Date(a))

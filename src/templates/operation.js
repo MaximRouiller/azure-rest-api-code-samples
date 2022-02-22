@@ -5,11 +5,11 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import Layout from '../components/layout';
 
-const OperationPage = ({ pageContext }) => {
+const OperationPage = ({ pageContext, location }) => {
   const { service, version, operation } = pageContext;
 
   return (
-    <Layout pageTitle={service + ' - ' + version + ' - ' + operation.operationId}>
+    <Layout pageTitle={`${service} - ${version} - ${operation.operationId}`} location={location}>
       <Flex direction='column'>
         <Heading fontSize={15} mb={2}>
           Request

@@ -4,11 +4,11 @@ import { Box, Flex, Divider, Link } from '@chakra-ui/react';
 
 import Layout from '../components/layout';
 
-const VersionPage = ({ pageContext }) => {
+const VersionPage = ({ pageContext, location }) => {
   const { service, version, generated } = pageContext;
 
   return (
-    <Layout pageTitle={service + ' - ' + version}>
+    <Layout pageTitle={`${service} - ${version}`} location={location}>
       <Flex direction='column'>
         {generated.map(({ operationId }) => (
           <Box key={operationId}>
