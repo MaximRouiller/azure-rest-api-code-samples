@@ -13,7 +13,7 @@ specifications are not stable.
 
 const fs = require('fs');
 
-const dir = '../azure-rest-api-specs'; // replace the path with your own if necessary
+const dir = '../azure-rest-api-specs/specification'; // replace the path with your own if necessary
 
 const walk = function (dir) {
   let results = [];
@@ -34,16 +34,11 @@ const walk = function (dir) {
   return results;
 };
 
-const jsonFiles = walk(dir + '/specification');
+const jsonFiles = walk(dir);
 for (let i in jsonFiles) {
   fs.writeFile(
     'generateAllSamples.sh',
-    'node generateSample ' +
-      jsonFiles[i].replace(
-        dir,
-        'https://raw.githubusercontent.com/Azure/azure-rest-api-specs/main'
-      ) +
-      '\n',
+    'node generateSample ' + jsonFiles[i] + '\n',
     { flag: 'a+' },
     (err) => {
       if (err) {
