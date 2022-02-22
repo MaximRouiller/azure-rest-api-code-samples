@@ -1,12 +1,12 @@
 /*
-This JS script tranverses all specifications in https://github.com/Azure/azure-rest-api-specs
+This JS script traverses all specifications in https://github.com/Azure/azure-rest-api-specs
 
 Note:
-1: This script works with local directory instead of remote url, because
-it is hard to identify if the subdirectory exist or not in url format. Thus,
-we clone the specification repo into local machine and do the traversing.
+1: This script works with a local clone of the repo instead of the remote repo, because
+it is hard to identify if a given subdirectory exists when working with the remote. Thus,
+we have to clone the specification repo into our local machine and then do the traversal.
 
-2. This script filters out the examples and preview directory, because the examples 
+2. This script filters out the 'examples' and 'preview' directories, because the examples 
 directory contains just examples for the related json specification and the preview 
 specifications are not stable.
 */
@@ -26,7 +26,7 @@ const walk = function (dir) {
         /* Recurse into a subdirectory */
         results = results.concat(walk(file));
       } else {
-        /* Is a JSON file */
+        /* Is a file */
         if (file.endsWith('.json')) results.push(file);
       }
     }
