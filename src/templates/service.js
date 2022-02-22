@@ -11,7 +11,7 @@ const ServicePage = ({ pageContext, location }) => {
     <Layout pageTitle={title} location={location}>
       <Flex direction='column'>
         {versions
-          .sort((a, b) => new Date(b) - new Date(a))
+          .sort((a, b) => b.localeCompare(a))
           .map((version) => (
             <Box key={version}>
               <Link as={GatsbyLink} to={`./${version}`}>
