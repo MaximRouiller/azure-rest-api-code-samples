@@ -1,35 +1,32 @@
-#!/usr/bin/env node
-// @ts-check
 /*
-This JS script tranverses all specifications in azure-specifications
+This JS script tranverses all specifications in https://github.com/Azure/azure-rest-api-specs
 
 Note:
 1: This script works with local directory instead of remote url, because
 it is hard to identify if the subdirectory exist or not in url format. Thus,
-we clone the specification repo into local machine and do the transversing.
+we clone the specification repo into local machine and do the traversing.
 
 2. This script filters out the examples and preview directory, because the examples 
-directory contains just examples for the related json specifiction and the preview 
+directory contains just examples for the related json specification and the preview 
 specifications are not stable.
 */
 
-'use strict';
-
 const fs = require('fs');
-let dir = '/Users/fuyingbo/Desktop/azure-rest-api-specs/specification/';
 
-let walk = function (dir) {
+const dir = '../azure-rest-api-specs'; // replace the path with your own if necessary
+
+const walk = function (dir) {
   let results = [];
-  let list = fs.readdirSync(dir);
+  const list = fs.readdirSync(dir);
   list.forEach(function (file) {
     if (!file.endsWith('preview') && !file.endsWith('examples')) {
       file = dir + '/' + file;
-      var stat = fs.statSync(file);
+      const stat = fs.statSync(file);
       if (stat && stat.isDirectory()) {
         /* Recurse into a subdirectory */
         results = results.concat(walk(file));
       } else {
-        /* Is a file */
+        /* Is a JSON file */
         if (file.endsWith('.json')) results.push(file);
       }
     }
@@ -37,13 +34,13 @@ let walk = function (dir) {
   return results;
 };
 
-let jsonFiles = walk(dir);
+const jsonFiles = walk(dir + '/specification');
 for (let i in jsonFiles) {
   fs.writeFile(
-    'test.sh',
+    'generateAllSamples.sh',
     'node generateSample ' +
       jsonFiles[i].replace(
-        '/Users/fuyingbo/Desktop/azure-rest-api-specs',
+        dir,
         'https://raw.githubusercontent.com/Azure/azure-rest-api-specs/main'
       ) +
       '\n',
