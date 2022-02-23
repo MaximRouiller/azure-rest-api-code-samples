@@ -1,5 +1,6 @@
 /*
-This JS script traverses all specifications in https://github.com/Azure/azure-rest-api-specs
+This JS script traverses all specifications in https://github.com/Azure/azure-rest-api-specs, 
+writes the paths to a file, and then generates code samples for all of them (or at least tries to). 
 
 Note:
 1: This script works with a local clone of the repo instead of the remote repo, because
@@ -12,6 +13,7 @@ specifications are not stable.
 */
 
 const fs = require('fs');
+const generateSample = require('./generateSample');
 
 const dir = '../azure-rest-api-specs/specification'; // replace the path with your own if necessary
 
@@ -23,10 +25,10 @@ const walk = function (dir) {
       file = dir + '/' + file;
       const stat = fs.statSync(file);
       if (stat && stat.isDirectory()) {
-        /* Recurse into a subdirectory */
+        // Recurse into a subdirectory
         results = results.concat(walk(file));
       } else {
-        /* Is a file */
+        // Is a file
         if (file.endsWith('.json')) results.push(file);
       }
     }
@@ -34,17 +36,12 @@ const walk = function (dir) {
   return results;
 };
 
-const jsonFiles = walk(dir);
-for (let i in jsonFiles) {
-  fs.writeFile(
-    'generateAllSamples.sh',
-    'node generateSample ' + jsonFiles[i] + '\n',
-    { flag: 'a+' },
-    (err) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-    }
-  );
-}
+const allSpecPaths = walk(dir);
+fs.writeFileSync('allSpecPaths.json', JSON.stringify(allSpecPaths, null, 2));
+
+(async () => {
+  for (const path of allSpecPaths) {
+    console.log(`${allSpecPaths.indexOf(path)}: ${path}`);
+    await generateSample(path);
+  }
+})();
