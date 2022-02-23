@@ -2,7 +2,7 @@
 
 const generateSample = require('./generateSample');
 
-const someSpecPaths = [
+const someSpecURLs = [
   'https://raw.githubusercontent.com/Azure/azure-rest-api-specs/main/specification/advisor/resource-manager/Microsoft.Advisor/stable/2020-01-01/advisor.json',
   'https://raw.githubusercontent.com/Azure/azure-rest-api-specs/main/specification/analysisservices/resource-manager/Microsoft.AnalysisServices/stable/2017-08-01/analysisservices.json',
   'https://raw.githubusercontent.com/Azure/azure-rest-api-specs/main/specification/resources/resource-manager/Microsoft.Resources/stable/2021-01-01/resources.json',
@@ -10,7 +10,7 @@ const someSpecPaths = [
 ];
 
 (async () => {
-  for (const path of someSpecPaths) {
-    await generateSample(path);
+  for (const url of someSpecURLs) {
+    await generateSample(url);
   }
 })();
