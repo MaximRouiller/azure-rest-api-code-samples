@@ -7,12 +7,15 @@ module.exports = generateSample;
 async function generateSample(spec) {
   try {
     const output = await generator(spec);
-    const { apiInfo } = output;
+    const {
+      apiInfo: { title, version },
+      specName,
+    } = output;
 
-    console.log(`API name: ${apiInfo.title}, Version: ${apiInfo.version}`);
+    console.log(`API name: ${title}, Version: ${version}, Spec name: ${specName}`);
 
     fs.writeFileSync(
-      `./samples/${apiInfo.title}_${apiInfo.version}.json`,
+      `./samples/${title}_${version}_${specName}.json`,
       JSON.stringify(output, null, 2)
     );
   } catch (err) {

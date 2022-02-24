@@ -7,6 +7,7 @@
       "name": "AnalysisServicesManagementClient"
     }
   },
+  "specName": "analysisservices",
   "generated": [
     {
       "operationId": "Servers_GetDetails",
