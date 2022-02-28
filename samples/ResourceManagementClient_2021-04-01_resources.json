@@ -5,6 +5,7 @@
     "description": "Provides operations for working with resources and resource groups."
   },
   "specName": "resources",
+  "service": "Resources",
   "generated": [
     {
       "operationId": "Operations_List",

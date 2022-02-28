@@ -5,6 +5,7 @@
     "description": "REST APIs for Azure Advisor"
   },
   "specName": "advisor",
+  "service": "Advisor",
   "generated": [
     {
       "operationId": "RecommendationMetadata_Get",

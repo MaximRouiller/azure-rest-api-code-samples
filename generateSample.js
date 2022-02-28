@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const generator = require('../OACodeSampleGenerator'); // a temporary solution until we release the package on npm
 
 module.exports = generateSample;
@@ -6,13 +7,18 @@ module.exports = generateSample;
 // Takes a specification url/path as the argument
 async function generateSample(spec) {
   try {
-    const output = await generator(spec);
+    let output = await generator(spec);
+    const specName = path.basename(spec).split('.')[0];
+    const service = spec.split('Microsoft.')[1].split('/')[0];
+    output = { apiInfo: output.apiInfo, specName, service, generated: output.generated };
+
     const {
       apiInfo: { title, version },
-      specName,
     } = output;
 
-    console.log(`API name: ${title}, Version: ${version}, Spec name: ${specName}`);
+    console.log(
+      `API name: ${title}, Version: ${version}, Spec name: ${specName}, Service: ${service}`
+    );
 
     fs.writeFileSync(
       `./samples/${title}_${version}_${specName}.json`,

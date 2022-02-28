@@ -5,6 +5,7 @@
     "version": "2021-04-01"
   },
   "specName": "storage",
+  "service": "Storage",
   "generated": [
     {
       "operationId": "Operations_List",
