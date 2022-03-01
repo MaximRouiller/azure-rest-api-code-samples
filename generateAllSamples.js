@@ -36,7 +36,9 @@ const walk = function (dir) {
   return results;
 };
 
-const allSpecPaths = walk(dir);
+const allSpecPaths = walk(dir).filter(
+  (path) => path.includes('Microsoft') && path.includes('stable')
+);
 fs.writeFileSync('allSpecPaths.json', JSON.stringify(allSpecPaths, null, 2));
 
 (async () => {
