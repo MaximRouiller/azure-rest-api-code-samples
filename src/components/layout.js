@@ -59,7 +59,7 @@ const Layout = ({ pageTitle, children, location }) => {
             .map((service) => (
               <Box key={service}>
                 <Link as={GatsbyLink} to={`/${service}`}>
-                  {service.split(/(?=[A-Z])/).join(' ')}
+                  {service}
                 </Link>
                 <Divider my={2} />
               </Box>
