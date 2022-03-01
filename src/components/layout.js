@@ -56,14 +56,16 @@ const Layout = ({ pageTitle, children, location }) => {
           <Heading fontSize={20} mb={5}>
             Services
           </Heading>
-          {services.map((title) => (
-            <Box key={title}>
-              <Link as={GatsbyLink} to={`/${title}`}>
-                {title}
-              </Link>
-              <Divider my={2} />
-            </Box>
-          ))}
+          {services
+            .sort((a, b) => a.localeCompare(b))
+            .map((title) => (
+              <Box key={title}>
+                <Link as={GatsbyLink} to={`/${title}`}>
+                  {title}
+                </Link>
+                <Divider my={2} />
+              </Box>
+            ))}
         </Flex>
         <Flex direction='column' ml={5} w='50rem'>
           <Heading fontSize={20} mb={5}>
