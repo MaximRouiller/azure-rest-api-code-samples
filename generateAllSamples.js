@@ -37,7 +37,8 @@ const walk = function (dir) {
 };
 
 const allSpecPaths = walk(dir).filter(
-  (path) => path.includes('Microsoft') && path.includes('stable')
+  (path) =>
+    path.includes('Microsoft') && path.includes('stable') && path.includes('resource-manager')
 );
 fs.writeFileSync('allSpecPaths.json', JSON.stringify(allSpecPaths, null, 2));
 
