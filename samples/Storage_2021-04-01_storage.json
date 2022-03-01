@@ -1,11 +1,7 @@
 {
-  "apiInfo": {
-    "title": "StorageManagementClient",
-    "description": "The Azure Storage Management API.",
-    "version": "2021-04-01"
-  },
-  "specName": "storage",
   "service": "Storage",
+  "version": "2021-04-01",
+  "specName": "storage",
   "generated": [
     {
       "operationId": "Operations_List",

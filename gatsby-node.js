@@ -12,10 +12,9 @@ exports.createPages = ({ graphql, actions }) => {
       allSamplesJson {
         edges {
           node {
-            apiInfo {
-              title
-              version
-            }
+            service
+            version
+            specName
             generated {
               operationId
               csharpModel
@@ -36,21 +35,22 @@ exports.createPages = ({ graphql, actions }) => {
     const services = [];
 
     result.data.allSamplesJson.edges.forEach((edge) => {
-      const { apiInfo, generated } = edge.node;
-      const { title, version } = apiInfo;
+      const { service, specName, generated } = edge.node;
+      let version = edge.node.version;
+      version = service.toLowerCase() !== specName ? `${version} (${specName})` : version;
 
-      const service = services.find((s) => s.title === title);
-      if (service) {
-        service.versions.push(version);
+      const serviceVersions = services.find((s) => s.service === service);
+      if (serviceVersions) {
+        serviceVersions.versions.push(version);
       } else {
-        services.push({ title, versions: [version] });
+        services.push({ service, versions: [version] });
       }
 
       createPage({
-        path: `${title}/${version}`,
+        path: `${service}/${version}`,
         component: versionPage,
         context: {
-          service: title,
+          service,
           version,
           generated,
         },
@@ -58,10 +58,10 @@ exports.createPages = ({ graphql, actions }) => {
 
       generated.forEach((operation) =>
         createPage({
-          path: `${title}/${version}/${operation.operationId}`,
+          path: `${service}/${version}/${operation.operationId}`,
           component: operationPage,
           context: {
-            service: title,
+            service,
             version,
             operation,
           },
@@ -69,12 +69,12 @@ exports.createPages = ({ graphql, actions }) => {
       );
     });
 
-    services.forEach(({ title, versions }) => {
+    services.forEach(({ service, versions }) => {
       createPage({
-        path: title,
+        path: service,
         component: servicePage,
         context: {
-          title,
+          service,
           versions,
         },
       });

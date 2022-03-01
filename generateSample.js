@@ -7,23 +7,21 @@ module.exports = generateSample;
 // Takes a specification url/path as the argument
 async function generateSample(spec) {
   try {
-    let output = await generator(spec);
-    const specName = path.basename(spec).split('.')[0];
     const service = spec.split('Microsoft.')[1].split('/')[0];
-    output = { apiInfo: output.apiInfo, specName, service, generated: output.generated };
+    const version = spec.split('stable/')[1].split('/')[0];
+    const specName = path.basename(spec).split('.')[0];
 
-    const {
-      apiInfo: { title, version },
-    } = output;
+    const samplePath = `./samples/${service}_${version}_${specName}.json`;
 
-    console.log(
-      `API name: ${title}, Version: ${version}, Spec name: ${specName}, Service: ${service}`
-    );
-
+    const { generated } = await generator(spec);
     fs.writeFileSync(
-      `./samples/${title}_${version}_${specName}.json`,
-      JSON.stringify(output, null, 2)
+      samplePath,
+      JSON.stringify({ service, version, specName, generated }, null, 2)
     );
+
+    console.log(`Service: ${service}, Version: ${version}, Spec name: ${specName}`);
+
+    return samplePath;
   } catch (err) {
     console.error(err);
   }

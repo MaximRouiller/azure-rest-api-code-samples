@@ -1,11 +1,7 @@
 {
-  "apiInfo": {
-    "version": "2020-01-01",
-    "title": "AdvisorManagementClient",
-    "description": "REST APIs for Azure Advisor"
-  },
-  "specName": "advisor",
   "service": "Advisor",
+  "version": "2020-01-01",
+  "specName": "advisor",
   "generated": [
     {
       "operationId": "RecommendationMetadata_Get",

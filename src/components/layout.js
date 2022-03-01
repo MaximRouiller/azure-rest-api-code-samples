@@ -14,9 +14,7 @@ const Layout = ({ pageTitle, children, location }) => {
       allSamplesJson {
         edges {
           node {
-            apiInfo {
-              title
-            }
+            service
           }
         }
       }
@@ -25,8 +23,8 @@ const Layout = ({ pageTitle, children, location }) => {
 
   const services = [];
   for (const edge of data.allSamplesJson.edges) {
-    const { title } = edge.node.apiInfo;
-    if (!services.find((s) => s === title)) services.push(title);
+    const service = edge.node.service;
+    if (!services.find((s) => s === service)) services.push(service);
   }
 
   const crumbs = [{ crumb: '', link: '' }];
@@ -52,26 +50,28 @@ const Layout = ({ pageTitle, children, location }) => {
         ))}
       </Breadcrumb>
       <Flex mt={5}>
-        <Flex direction='column'>
+        <Flex direction='column' w='20rem'>
           <Heading fontSize={20} mb={5}>
             Services
           </Heading>
           {services
             .sort((a, b) => a.localeCompare(b))
-            .map((title) => (
-              <Box key={title}>
-                <Link as={GatsbyLink} to={`/${title}`}>
-                  {title}
+            .map((service) => (
+              <Box key={service}>
+                <Link as={GatsbyLink} to={`/${service}`}>
+                  {service.split(/(?=[A-Z])/).join(' ')}
                 </Link>
                 <Divider my={2} />
               </Box>
             ))}
         </Flex>
         <Flex direction='column' ml={5} w='50rem'>
-          <Heading fontSize={20} mb={5}>
-            {pageTitle}
-          </Heading>
-          {children}
+          <main>
+            <Heading fontSize={20} mb={5}>
+              {pageTitle}
+            </Heading>
+            {children}
+          </main>
         </Flex>
       </Flex>
     </Box>

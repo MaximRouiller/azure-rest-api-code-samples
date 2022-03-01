@@ -5,10 +5,10 @@ import { Box, Flex, Divider, Link } from '@chakra-ui/react';
 import Layout from '../components/layout';
 
 const ServicePage = ({ pageContext, location }) => {
-  const { title, versions } = pageContext;
+  const { service, versions } = pageContext;
 
   return (
-    <Layout pageTitle={title} location={location}>
+    <Layout pageTitle={service} location={location}>
       <Flex direction='column'>
         {versions
           .sort((a, b) => b.localeCompare(a))

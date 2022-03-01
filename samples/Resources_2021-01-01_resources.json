@@ -1,11 +1,7 @@
 {
-  "apiInfo": {
-    "title": "ResourceManagementClient",
-    "version": "2021-01-01",
-    "description": "Provides operations for working with resources and resource groups."
-  },
-  "specName": "resources",
   "service": "Resources",
+  "version": "2021-01-01",
+  "specName": "resources",
   "generated": [
     {
       "operationId": "Operations_List",
