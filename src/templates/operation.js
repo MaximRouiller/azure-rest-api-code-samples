@@ -121,13 +121,11 @@ const SamplePanel = ({ sample, language }) => {
 
   return (
     <Box position='relative'>
-      {sample && (
-        <CopyToClipboard text={sample} onCopy={onCopy}>
-          <Button size='sm' colorScheme='blue' position='absolute' top={2} right={2}>
-            {showCopied ? 'Copied' : 'Copy'}
-          </Button>
-        </CopyToClipboard>
-      )}
+      <CopyToClipboard text={sample} onCopy={onCopy}>
+        <Button size='sm' colorScheme='blue' position='absolute' top={2} right={2}>
+          {showCopied ? 'Copied' : 'Copy'}
+        </Button>
+      </CopyToClipboard>
       <SyntaxHighlighter language={language} style={docco}>
         {sample}
       </SyntaxHighlighter>
