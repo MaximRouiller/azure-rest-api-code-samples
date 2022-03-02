@@ -3,6 +3,8 @@ import { Link as GatsbyLink, useStaticQuery, graphql } from 'gatsby';
 import { Box, Flex, Divider, Heading, Link } from '@chakra-ui/react';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 
+import ServicesDrawer from './servicesDrawer';
+
 const Layout = ({ pageTitle, children, location }) => {
   const data = useStaticQuery(graphql`
     query {
@@ -32,13 +34,28 @@ const Layout = ({ pageTitle, children, location }) => {
     crumbs.push({ crumb, link: crumbs[crumbs.length - 1].link + '/' + crumb });
   }
 
+  const ServiceLinks = () => (
+    <>
+      {services
+        .sort((a, b) => a.localeCompare(b))
+        .map((service) => (
+          <Box key={service}>
+            <Link as={GatsbyLink} to={`/${service}`}>
+              {service}
+            </Link>
+            <Divider my={2} />
+          </Box>
+        ))}
+    </>
+  );
+
   return (
-    <Box m='auto' w='fit-content' p={5}>
+    <Box m='auto' maxW='70rem' p={5}>
       <title>
         {pageTitle} | {data.site.siteMetadata.title}
       </title>
       <GatsbyLink to='/'>
-        <Heading fontSize={25}>Azure REST API Code Samples</Heading>
+        <Heading fontSize={24}>Azure REST API Code Samples</Heading>
       </GatsbyLink>
       <Breadcrumb mt={2}>
         {crumbs.slice(1).map(({ crumb, link }) => (
@@ -49,23 +66,17 @@ const Layout = ({ pageTitle, children, location }) => {
           </BreadcrumbItem>
         ))}
       </Breadcrumb>
+      <ServicesDrawer mt={2} display={{ base: 'block', md: 'none' }}>
+        <ServiceLinks />
+      </ServicesDrawer>
       <Flex mt={5}>
-        <Flex direction='column' w='20rem'>
+        <Flex direction='column' w='25%' display={{ base: 'none', md: 'flex' }} mr={5}>
           <Heading fontSize={20} mb={5}>
             Services
           </Heading>
-          {services
-            .sort((a, b) => a.localeCompare(b))
-            .map((service) => (
-              <Box key={service}>
-                <Link as={GatsbyLink} to={`/${service}`}>
-                  {service}
-                </Link>
-                <Divider my={2} />
-              </Box>
-            ))}
+          <ServiceLinks />
         </Flex>
-        <Flex direction='column' ml={5} w='50rem'>
+        <Flex direction='column' w={{ base: '100%', md: '75%' }}>
           <main>
             <Heading fontSize={20} mb={5}>
               {pageTitle}
