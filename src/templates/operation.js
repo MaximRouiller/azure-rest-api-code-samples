@@ -5,6 +5,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import Layout from '../components/layout';
 
+const languageIndexes = { Java: 0, Python: 1, 'C#': 2 };
+
 const OperationPage = ({ pageContext, location }) => {
   const { service, version, operation } = pageContext;
 
@@ -14,7 +16,7 @@ const OperationPage = ({ pageContext, location }) => {
         <Heading fontSize={15} mb={2}>
           Request
         </Heading>
-        <Tabs mb={2}>
+        <Tabs mb={2} defaultIndex={languageIndexes[localStorage.getItem('defaultLanguage')]}>
           <TabList>
             <Tab>Java</Tab>
             <Tab>Python</Tab>
@@ -50,7 +52,7 @@ const OperationPage = ({ pageContext, location }) => {
         <Heading fontSize={15} my={2}>
           Response Model
         </Heading>
-        <Tabs>
+        <Tabs defaultIndex={languageIndexes[localStorage.getItem('defaultLanguage')]}>
           <TabList>
             <Tab>Java</Tab>
             <Tab>Python</Tab>

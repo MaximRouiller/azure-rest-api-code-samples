@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link as GatsbyLink, useStaticQuery, graphql } from 'gatsby';
-import { Box, Flex, Divider, Heading, Link } from '@chakra-ui/react';
+import { Box, Flex, Stack, Divider, Heading, Link } from '@chakra-ui/react';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
+import { Radio, RadioGroup } from '@chakra-ui/react';
 
 const Layout = ({ pageTitle, children, location }) => {
+  const [defaultLanguage, setDefaultLanguage] = useState(
+    localStorage.getItem('defaultLanguage') || 'Java'
+  );
+
+  useEffect(() => {
+    localStorage.setItem('defaultLanguage', defaultLanguage);
+  }, [defaultLanguage]);
+
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -37,9 +46,23 @@ const Layout = ({ pageTitle, children, location }) => {
       <title>
         {pageTitle} | {data.site.siteMetadata.title}
       </title>
-      <GatsbyLink to='/'>
-        <Heading fontSize={25}>Azure REST API Code Samples</Heading>
-      </GatsbyLink>
+      <Flex justify='space-between'>
+        <GatsbyLink to='/'>
+          <Heading fontSize={25}>Azure REST API Code Samples</Heading>
+        </GatsbyLink>
+        <Flex align='center'>
+          <Heading fontSize={15} mr={4}>
+            Default Language:
+          </Heading>
+          <RadioGroup value={defaultLanguage} onChange={setDefaultLanguage}>
+            <Stack direction='row'>
+              <Radio value='Java'>Java</Radio>
+              <Radio value='Python'>Python</Radio>
+              <Radio value='C#'>C#</Radio>
+            </Stack>
+          </RadioGroup>
+        </Flex>
+      </Flex>
       <Breadcrumb mt={2}>
         {crumbs.slice(1).map(({ crumb, link }) => (
           <BreadcrumbItem key={crumb} isCurrentPage={link.slice(1) === location.pathname}>
