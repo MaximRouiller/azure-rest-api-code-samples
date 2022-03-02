@@ -42,24 +42,26 @@ const OperationPage = ({ pageContext, location }) => {
         <Heading fontSize={15} mb={2}>
           Request
         </Heading>
-        <Tabs index={languages.indexOf(defaultLanguage)} onChange={onChangeTab} mb={2} h='30rem'>
-          <TabList>
-            <Tab>Java</Tab>
-            <Tab>Python</Tab>
-            <Tab>C#</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <SamplePanel sample={javaSnippet} language='java' />
-            </TabPanel>
-            <TabPanel>
-              <SamplePanel sample={pythonSnippet} language='python' />
-            </TabPanel>
-            <TabPanel>
-              <SamplePanel sample={csharpSnippet} language='csharp' />
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+        {defaultLanguage && (
+          <Tabs defaultIndex={languages.indexOf(defaultLanguage)} onChange={onChangeTab} mb={2}>
+            <TabList>
+              <Tab>Java</Tab>
+              <Tab>Python</Tab>
+              <Tab>C#</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <SamplePanel sample={javaSnippet} language='java' />
+              </TabPanel>
+              <TabPanel>
+                <SamplePanel sample={pythonSnippet} language='python' />
+              </TabPanel>
+              <TabPanel>
+                <SamplePanel sample={csharpSnippet} language='csharp' />
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        )}
 
         {requestBody && (
           <>
@@ -79,12 +81,12 @@ const OperationPage = ({ pageContext, location }) => {
           </>
         )}
 
-        {javaModel && pythonModel && csharpModel && (
+        {defaultLanguage && javaModel && pythonModel && csharpModel && (
           <>
             <Heading fontSize={15} my={2}>
               Response Model
             </Heading>
-            <Tabs index={languages.indexOf(defaultLanguage)} onChange={onChangeTab}>
+            <Tabs defaultIndex={languages.indexOf(defaultLanguage)} onChange={onChangeTab}>
               <TabList>
                 <Tab>Java</Tab>
                 <Tab>Python</Tab>
