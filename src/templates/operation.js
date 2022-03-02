@@ -25,6 +25,10 @@ const OperationPage = ({ pageContext, location }) => {
     },
   } = pageContext;
 
+  const [groupName, operationName] = operationId
+    .split('_')
+    .map((name) => name.split(/(?=[A-Z])/).join(' '));
+
   const [defaultLanguage, setDefaultLanguage] = useState('');
 
   useEffect(() => {
@@ -37,7 +41,10 @@ const OperationPage = ({ pageContext, location }) => {
   };
 
   return (
-    <Layout pageTitle={`${service} - ${version} - ${operationId}`} location={location}>
+    <Layout
+      pageTitle={`${service} - ${version} - ${groupName} - ${operationName}`}
+      location={location}
+    >
       <Flex direction='column'>
         <Heading fontSize={15} mb={2}>
           Request
