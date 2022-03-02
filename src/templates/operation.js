@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Flex, Heading, Button } from '@chakra-ui/react';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import Layout from '../components/layout';
 
-const languageIndexes = { Java: 0, Python: 1, 'C#': 2 };
+const languages = ['Java', 'Python', 'C#'];
 
 const OperationPage = ({ pageContext, location }) => {
   const { service, version, operation } = pageContext;
+
+  const [defaultLanguage, setDefaultLanguage] = useState('');
+
+  useEffect(() => {
+    setDefaultLanguage(localStorage.getItem('defaultLanguage') || 'Java');
+  }, []);
+
+  const onChangeTab = (index) => {
+    localStorage.setItem('defaultLanguage', languages[index]);
+    setDefaultLanguage(languages[index]);
+  };
 
   return (
     <Layout pageTitle={`${service} - ${version} - ${operation.operationId}`} location={location}>
@@ -16,7 +27,7 @@ const OperationPage = ({ pageContext, location }) => {
         <Heading fontSize={15} mb={2}>
           Request
         </Heading>
-        <Tabs mb={2} defaultIndex={languageIndexes[localStorage.getItem('defaultLanguage')]}>
+        <Tabs index={languages.indexOf(defaultLanguage)} onChange={onChangeTab} mb={2} h='30rem'>
           <TabList>
             <Tab>Java</Tab>
             <Tab>Python</Tab>
@@ -52,7 +63,7 @@ const OperationPage = ({ pageContext, location }) => {
         <Heading fontSize={15} my={2}>
           Response Model
         </Heading>
-        <Tabs defaultIndex={languageIndexes[localStorage.getItem('defaultLanguage')]}>
+        <Tabs index={languages.indexOf(defaultLanguage)} onChange={onChangeTab}>
           <TabList>
             <Tab>Java</Tab>
             <Tab>Python</Tab>
