@@ -2,13 +2,28 @@ import React, { useState, useEffect } from 'react';
 import { Box, Flex, Heading, Button } from '@chakra-ui/react';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 import Layout from '../components/layout';
 
 const languages = ['Java', 'Python', 'C#'];
 
 const OperationPage = ({ pageContext, location }) => {
-  const { service, version, operation } = pageContext;
+  const {
+    service,
+    version,
+    operation: {
+      operationId,
+      javaSnippet,
+      pythonSnippet,
+      csharpSnippet,
+      requestBody,
+      javaModel,
+      pythonModel,
+      csharpModel,
+    },
+  } = pageContext;
 
   const [defaultLanguage, setDefaultLanguage] = useState('');
 
@@ -22,7 +37,7 @@ const OperationPage = ({ pageContext, location }) => {
   };
 
   return (
-    <Layout pageTitle={`${service} - ${version} - ${operation.operationId}`} location={location}>
+    <Layout pageTitle={`${service} - ${version} - ${operationId}`} location={location}>
       <Flex direction='column'>
         <Heading fontSize={15} mb={2}>
           Request
@@ -35,58 +50,66 @@ const OperationPage = ({ pageContext, location }) => {
           </TabList>
           <TabPanels>
             <TabPanel>
-              <SamplePanel sample={operation.javaSnippet} />
+              <SamplePanel sample={javaSnippet} language='java' />
             </TabPanel>
             <TabPanel>
-              <SamplePanel sample={operation.pythonSnippet} />
+              <SamplePanel sample={pythonSnippet} language='python' />
             </TabPanel>
             <TabPanel>
-              <SamplePanel sample={operation.csharpSnippet} />
+              <SamplePanel sample={csharpSnippet} language='csharp' />
             </TabPanel>
           </TabPanels>
         </Tabs>
 
-        <Heading fontSize={15} my={2}>
-          Request Body
-        </Heading>
-        <Tabs mb={2}>
-          <TabList>
-            <Tab>JSON</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <SamplePanel sample={operation.requestBody} />
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+        {requestBody && (
+          <>
+            <Heading fontSize={15} my={2}>
+              Request Body
+            </Heading>
+            <Tabs mb={2}>
+              <TabList>
+                <Tab>JSON</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <SamplePanel sample={requestBody} language='json' />
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          </>
+        )}
 
-        <Heading fontSize={15} my={2}>
-          Response Model
-        </Heading>
-        <Tabs index={languages.indexOf(defaultLanguage)} onChange={onChangeTab}>
-          <TabList>
-            <Tab>Java</Tab>
-            <Tab>Python</Tab>
-            <Tab>C#</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <SamplePanel sample={operation.javaModel} />
-            </TabPanel>
-            <TabPanel>
-              <SamplePanel sample={operation.pythonModel} />
-            </TabPanel>
-            <TabPanel>
-              <SamplePanel sample={operation.csharpModel} />
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+        {javaModel && pythonModel && csharpModel && (
+          <>
+            <Heading fontSize={15} my={2}>
+              Response Model
+            </Heading>
+            <Tabs index={languages.indexOf(defaultLanguage)} onChange={onChangeTab}>
+              <TabList>
+                <Tab>Java</Tab>
+                <Tab>Python</Tab>
+                <Tab>C#</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <SamplePanel sample={javaModel} language='java' />
+                </TabPanel>
+                <TabPanel>
+                  <SamplePanel sample={pythonModel} language='python' />
+                </TabPanel>
+                <TabPanel>
+                  <SamplePanel sample={csharpModel} language='csharp' />
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          </>
+        )}
       </Flex>
     </Layout>
   );
 };
 
-const SamplePanel = ({ sample }) => {
+const SamplePanel = ({ sample, language }) => {
   const [showCopied, setShowCopied] = useState(false);
 
   const onCopy = () => {
@@ -98,12 +121,14 @@ const SamplePanel = ({ sample }) => {
     <Box position='relative'>
       {sample && (
         <CopyToClipboard text={sample} onCopy={onCopy}>
-          <Button size='sm' colorScheme='blue' position='absolute' right={0}>
+          <Button size='sm' colorScheme='blue' position='absolute' top={2} right={2}>
             {showCopied ? 'Copied' : 'Copy'}
           </Button>
         </CopyToClipboard>
       )}
-      <pre style={{ whiteSpace: 'pre-wrap' }}>{sample}</pre>
+      <SyntaxHighlighter language={language} style={docco}>
+        {sample}
+      </SyntaxHighlighter>
     </Box>
   );
 };
