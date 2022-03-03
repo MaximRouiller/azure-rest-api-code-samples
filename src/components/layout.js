@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link as GatsbyLink, useStaticQuery, graphql } from 'gatsby';
-import { Box, Flex, Divider, Heading, Link } from '@chakra-ui/react';
+import { Box, Flex, Divider, Heading, Link, useDisclosure } from '@chakra-ui/react';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 
 import ServicesDrawer from './servicesDrawer';
@@ -17,6 +17,12 @@ const Layout = ({ children, location }) => {
       }
     }
   `);
+
+  const {
+    isOpen: servicesDrawerIsOpen,
+    onOpen: onOpenServicesDrawer,
+    onClose: onCloseServicesDrawer,
+  } = useDisclosure();
 
   const services = [];
   for (const edge of data.allSamplesJson.edges) {
@@ -43,8 +49,14 @@ const Layout = ({ children, location }) => {
           </BreadcrumbItem>
         ))}
       </Breadcrumb>
-      <ServicesDrawer mt={2} display={{ base: 'block', md: 'none' }}>
-        <ServiceLinks services={services} />
+      <ServicesDrawer
+        mt={2}
+        display={{ base: 'block', md: 'none' }}
+        isOpen={servicesDrawerIsOpen}
+        onOpen={onOpenServicesDrawer}
+        onClose={onCloseServicesDrawer}
+      >
+        <ServiceLinks services={services} onCloseDrawer={onCloseServicesDrawer} />
       </ServicesDrawer>
       <Flex mt={5}>
         <Flex
@@ -69,13 +81,13 @@ const Layout = ({ children, location }) => {
   );
 };
 
-const ServiceLinks = ({ services }) => (
+const ServiceLinks = ({ services, onCloseDrawer }) => (
   <Flex direction='column' overflowY='auto'>
     {services
       .sort((a, b) => a.localeCompare(b))
       .map((service) => (
         <Box key={service}>
-          <Link as={GatsbyLink} to={`/${service}`}>
+          <Link as={GatsbyLink} to={`/${service}`} onClick={onCloseDrawer}>
             {service}
           </Link>
           <Divider my={2} />

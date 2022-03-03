@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Button, useDisclosure } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import {
   Drawer,
   DrawerBody,
@@ -10,8 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
 
-const ServicesDrawer = ({ children, ...props }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+const ServicesDrawer = ({ children, isOpen, onOpen, onClose, ...props }) => {
   const buttonRef = useRef();
 
   return (
