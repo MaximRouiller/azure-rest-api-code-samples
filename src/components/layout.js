@@ -34,21 +34,6 @@ const Layout = ({ pageTitle, children, location }) => {
     crumbs.push({ crumb, link: crumbs[crumbs.length - 1].link + '/' + crumb });
   }
 
-  const ServiceLinks = () => (
-    <>
-      {services
-        .sort((a, b) => a.localeCompare(b))
-        .map((service) => (
-          <Box key={service}>
-            <Link as={GatsbyLink} to={`/${service}`}>
-              {service}
-            </Link>
-            <Divider my={2} />
-          </Box>
-        ))}
-    </>
-  );
-
   return (
     <Box m='auto' maxW='70rem' p={5}>
       <title>
@@ -67,7 +52,7 @@ const Layout = ({ pageTitle, children, location }) => {
         ))}
       </Breadcrumb>
       <ServicesDrawer mt={2} display={{ base: 'block', md: 'none' }}>
-        <ServiceLinks />
+        <ServiceLinks services={services} />
       </ServicesDrawer>
       <Flex mt={5}>
         <Flex
@@ -82,7 +67,7 @@ const Layout = ({ pageTitle, children, location }) => {
           <Heading fontSize={20} mb={5}>
             Services
           </Heading>
-          <ServiceLinks />
+          <ServiceLinks services={services} />
         </Flex>
         <Flex direction='column' w={{ base: '100%', md: '75%' }}>
           <main>
@@ -96,5 +81,20 @@ const Layout = ({ pageTitle, children, location }) => {
     </Box>
   );
 };
+
+const ServiceLinks = ({ services }) => (
+  <Flex direction='column' overflowY='auto'>
+    {services
+      .sort((a, b) => a.localeCompare(b))
+      .map((service) => (
+        <Box key={service}>
+          <Link as={GatsbyLink} to={`/${service}`}>
+            {service}
+          </Link>
+          <Divider my={2} />
+        </Box>
+      ))}
+  </Flex>
+);
 
 export default Layout;
