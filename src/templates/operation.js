@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Flex, Heading, Button } from '@chakra-ui/react';
+import { Heading, Box, Button } from '@chakra-ui/react';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
-import Layout from '../components/layout';
-
 const languages = ['Java', 'Python', 'C#'];
 
-const OperationPage = ({ pageContext, location }) => {
+const OperationPage = ({ pageContext }) => {
   const {
     service,
     version,
@@ -29,6 +27,8 @@ const OperationPage = ({ pageContext, location }) => {
     .split('_')
     .map((name) => name.split(/(?=[A-Z])/).join(' '));
 
+  const pageTitle = `${service} - ${version} - ${groupName} - ${operationName}`;
+
   const [defaultLanguage, setDefaultLanguage] = useState('');
 
   useEffect(() => {
@@ -41,16 +41,59 @@ const OperationPage = ({ pageContext, location }) => {
   };
 
   return (
-    <Layout
-      pageTitle={`${service} - ${version} - ${groupName} - ${operationName}`}
-      location={location}
-    >
-      <Flex direction='column'>
-        <Heading fontSize={15} mb={2}>
-          Request
-        </Heading>
-        {defaultLanguage && (
-          <Tabs defaultIndex={languages.indexOf(defaultLanguage)} onChange={onChangeTab} mb={2}>
+    <>
+      <title>{pageTitle} | Azure REST API Code Samples</title>
+      <Heading fontSize={20} mb={5}>
+        {pageTitle}
+      </Heading>
+      <Heading fontSize={15} mb={2}>
+        Request
+      </Heading>
+      {defaultLanguage && (
+        <Tabs defaultIndex={languages.indexOf(defaultLanguage)} onChange={onChangeTab} mb={2}>
+          <TabList>
+            <Tab>Java</Tab>
+            <Tab>Python</Tab>
+            <Tab>C#</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <SamplePanel sample={javaSnippet} language='java' />
+            </TabPanel>
+            <TabPanel>
+              <SamplePanel sample={pythonSnippet} language='python' />
+            </TabPanel>
+            <TabPanel>
+              <SamplePanel sample={csharpSnippet} language='csharp' />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      )}
+
+      {requestBody && (
+        <>
+          <Heading fontSize={15} my={2}>
+            Request Body
+          </Heading>
+          <Tabs mb={2}>
+            <TabList>
+              <Tab>JSON</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <SamplePanel sample={requestBody} language='json' />
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        </>
+      )}
+
+      {defaultLanguage && javaModel && pythonModel && csharpModel && (
+        <>
+          <Heading fontSize={15} my={2}>
+            Response Model
+          </Heading>
+          <Tabs defaultIndex={languages.indexOf(defaultLanguage)} onChange={onChangeTab}>
             <TabList>
               <Tab>Java</Tab>
               <Tab>Python</Tab>
@@ -58,63 +101,19 @@ const OperationPage = ({ pageContext, location }) => {
             </TabList>
             <TabPanels>
               <TabPanel>
-                <SamplePanel sample={javaSnippet} language='java' />
+                <SamplePanel sample={javaModel} language='java' />
               </TabPanel>
               <TabPanel>
-                <SamplePanel sample={pythonSnippet} language='python' />
+                <SamplePanel sample={pythonModel} language='python' />
               </TabPanel>
               <TabPanel>
-                <SamplePanel sample={csharpSnippet} language='csharp' />
+                <SamplePanel sample={csharpModel} language='csharp' />
               </TabPanel>
             </TabPanels>
           </Tabs>
-        )}
-
-        {requestBody && (
-          <>
-            <Heading fontSize={15} my={2}>
-              Request Body
-            </Heading>
-            <Tabs mb={2}>
-              <TabList>
-                <Tab>JSON</Tab>
-              </TabList>
-              <TabPanels>
-                <TabPanel>
-                  <SamplePanel sample={requestBody} language='json' />
-                </TabPanel>
-              </TabPanels>
-            </Tabs>
-          </>
-        )}
-
-        {defaultLanguage && javaModel && pythonModel && csharpModel && (
-          <>
-            <Heading fontSize={15} my={2}>
-              Response Model
-            </Heading>
-            <Tabs defaultIndex={languages.indexOf(defaultLanguage)} onChange={onChangeTab}>
-              <TabList>
-                <Tab>Java</Tab>
-                <Tab>Python</Tab>
-                <Tab>C#</Tab>
-              </TabList>
-              <TabPanels>
-                <TabPanel>
-                  <SamplePanel sample={javaModel} language='java' />
-                </TabPanel>
-                <TabPanel>
-                  <SamplePanel sample={pythonModel} language='python' />
-                </TabPanel>
-                <TabPanel>
-                  <SamplePanel sample={csharpModel} language='csharp' />
-                </TabPanel>
-              </TabPanels>
-            </Tabs>
-          </>
-        )}
-      </Flex>
-    </Layout>
+        </>
+      )}
+    </>
   );
 };
 

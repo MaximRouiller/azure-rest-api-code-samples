@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link as GatsbyLink } from 'gatsby';
-import { Flex, Divider, Link, Heading } from '@chakra-ui/react';
+import { Heading, Flex, Divider, Link } from '@chakra-ui/react';
 
-import Layout from '../components/layout';
-
-const VersionPage = ({ pageContext, location }) => {
+const VersionPage = ({ pageContext }) => {
   const { service, version, generated } = pageContext;
+
+  const pageTitle = `${service} - ${version}`;
 
   const groups = [];
   for (const { operationId } of generated) {
@@ -19,7 +19,11 @@ const VersionPage = ({ pageContext, location }) => {
   }
 
   return (
-    <Layout pageTitle={`${service} - ${version}`} location={location}>
+    <>
+      <title>{pageTitle} | Azure REST API Code Samples</title>
+      <Heading fontSize={20} mb={5}>
+        {pageTitle}
+      </Heading>
       {groups
         .sort((a, b) => a.groupName.localeCompare(b.groupName))
         .map(({ groupName, operations }) => (
@@ -37,7 +41,7 @@ const VersionPage = ({ pageContext, location }) => {
             <Divider mt={2} mb={4} />
           </Flex>
         ))}
-    </Layout>
+    </>
   );
 };
 

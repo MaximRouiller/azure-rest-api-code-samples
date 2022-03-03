@@ -1,12 +1,16 @@
 import React from 'react';
-import { Text, Link } from '@chakra-ui/react';
+import { Heading, Text, Link } from '@chakra-ui/react';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 
-import Layout from '../components/layout';
+const IndexPage = () => {
+  const pageTitle = 'Home | Azure REST API Code Samples';
 
-const IndexPage = ({ location }) => {
   return (
-    <Layout pageTitle='Home - Code Samples for Azure REST API' location={location}>
+    <>
+      <title>{pageTitle}</title>
+      <Heading fontSize={20} mb={5}>
+        {pageTitle}
+      </Heading>
       <Text mb={2}>
         Pick an Azure service and one of its operations to view code samples for its REST API.
       </Text>
@@ -24,7 +28,7 @@ const IndexPage = ({ location }) => {
         </Link>
         .
       </Text>
-    </Layout>
+    </>
   );
 };
 

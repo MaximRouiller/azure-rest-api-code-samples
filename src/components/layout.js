@@ -5,14 +5,9 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 
 import ServicesDrawer from './servicesDrawer';
 
-const Layout = ({ pageTitle, children, location }) => {
+const Layout = ({ children, location }) => {
   const data = useStaticQuery(graphql`
     query {
-      site {
-        siteMetadata {
-          title
-        }
-      }
       allSamplesJson {
         edges {
           node {
@@ -36,9 +31,6 @@ const Layout = ({ pageTitle, children, location }) => {
 
   return (
     <Box m='auto' maxW='70rem' p={5}>
-      <title>
-        {pageTitle} | {data.site.siteMetadata.title}
-      </title>
       <GatsbyLink to='/'>
         <Heading fontSize={24}>Azure REST API Code Samples</Heading>
       </GatsbyLink>
@@ -70,12 +62,7 @@ const Layout = ({ pageTitle, children, location }) => {
           <ServiceLinks services={services} />
         </Flex>
         <Flex direction='column' w={{ base: '100%', md: '75%' }}>
-          <main>
-            <Heading fontSize={20} mb={5}>
-              {pageTitle}
-            </Heading>
-            {children}
-          </main>
+          <main>{children}</main>
         </Flex>
       </Flex>
     </Box>

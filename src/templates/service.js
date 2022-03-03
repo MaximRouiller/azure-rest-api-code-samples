@@ -1,27 +1,29 @@
 import React from 'react';
 import { Link as GatsbyLink } from 'gatsby';
-import { Box, Flex, Divider, Link } from '@chakra-ui/react';
+import { Heading, Box, Divider, Link } from '@chakra-ui/react';
 
-import Layout from '../components/layout';
-
-const ServicePage = ({ pageContext, location }) => {
+const ServicePage = ({ pageContext }) => {
   const { service, versions } = pageContext;
 
+  const pageTitle = service;
+
   return (
-    <Layout pageTitle={service} location={location}>
-      <Flex direction='column'>
-        {versions
-          .sort((a, b) => b.localeCompare(a))
-          .map((version) => (
-            <Box key={version}>
-              <Link as={GatsbyLink} to={`./${version}`}>
-                {version}
-              </Link>
-              <Divider my={2} />
-            </Box>
-          ))}
-      </Flex>
-    </Layout>
+    <>
+      <title>{pageTitle} | Azure REST API Code Samples</title>
+      <Heading fontSize={20} mb={5}>
+        {pageTitle}
+      </Heading>
+      {versions
+        .sort((a, b) => b.localeCompare(a))
+        .map((version) => (
+          <Box key={version}>
+            <Link as={GatsbyLink} to={`./${version}`}>
+              {version}
+            </Link>
+            <Divider my={2} />
+          </Box>
+        ))}
+    </>
   );
 };
 
