@@ -36,9 +36,8 @@ exports.createPages = ({ graphql, actions }) => {
 
     result.data.allSamplesJson.edges.forEach((edge) => {
       const { service, specName, generated } = edge.node;
-      let version = edge.node.version;
-      version =
-        service.toLowerCase() !== specName.toLowerCase() ? `${version} (${specName})` : version;
+      const serviceNameEqualsSpecName = service.toLowerCase() === specName.toLowerCase();
+      const version = edge.node.version + (serviceNameEqualsSpecName ? '' : ` (${specName})`);
 
       const serviceVersions = services.find((s) => s.service === service);
       if (serviceVersions) {
