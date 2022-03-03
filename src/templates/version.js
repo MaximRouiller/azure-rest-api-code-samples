@@ -9,9 +9,7 @@ const VersionPage = ({ pageContext }) => {
 
   const groups = [];
   for (const { operationId } of generated) {
-    const [groupName, operationName] = operationId
-      .split('_')
-      .map((name) => name.split(/(?=[A-Z])/).join(' '));
+    const [groupName, operationName] = operationId.split('_');
     const group = groups.find((g) => g.groupName === groupName);
     if (group) {
       group.operations.push(operationName);
@@ -31,13 +29,13 @@ const VersionPage = ({ pageContext }) => {
         .map(({ groupName, operations }) => (
           <Flex direction='column' key={groupName}>
             <Heading fontSize={15} mb={4}>
-              {groupName}
+              {groupName.split(/(?=[A-Z])/).join(' ')}
             </Heading>
             {operations
               .sort((a, b) => a.localeCompare(b))
               .map((operation) => (
                 <Link as={GatsbyLink} to={`./${groupName}_${operation}`} key={operation} mb={2}>
-                  {operation}
+                  {operation.split(/(?=[A-Z])/).join(' ')}
                 </Link>
               ))}
             <Divider mt={2} mb={4} />
