@@ -1,5 +1,6 @@
-import React, { useRef } from 'react';
-import { Button } from '@chakra-ui/react';
+import React, { useRef, useEffect } from 'react';
+import { globalHistory } from '@reach/router';
+import { Button, useDisclosure } from '@chakra-ui/react';
 import {
   Drawer,
   DrawerBody,
@@ -10,8 +11,11 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
 
-const ServicesDrawer = ({ children, isOpen, onOpen, onClose, ...props }) => {
+const ServicesDrawer = ({ children, ...props }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const buttonRef = useRef();
+
+  useEffect(() => globalHistory.listen(onClose), [onClose]);
 
   return (
     <>
