@@ -19,7 +19,7 @@ async function generateSample(spec) {
       JSON.stringify({ service, version, specName, generated }, null, 2)
     );
 
-    console.log(`Service: ${service}, Version: ${version}, Spec name: ${specName}`);
+    console.log(samplePath);
 
     return samplePath;
   } catch (err) {
