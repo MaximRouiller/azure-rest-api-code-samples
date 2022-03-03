@@ -59,7 +59,7 @@ const Layout = ({ pageTitle, children, location }) => {
           direction='column'
           w='25%'
           display={{ base: 'none', md: 'flex' }}
-          mr={5}
+          pr={5}
           position='sticky'
           height='80vh'
           top={5}
