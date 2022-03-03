@@ -43,21 +43,12 @@ const allSpecPaths = walk(dir).filter(
 fs.writeFileSync('allSpecPaths.json', JSON.stringify(allSpecPaths, null, 2));
 
 (async () => {
-  // const samplePaths = [];
-  // const repeatPaths = [];
+  const allSamplePaths = [];
 
   for (const path of allSpecPaths) {
     console.log(`${allSpecPaths.indexOf(path)}: ${path}`);
-    await generateSample(path);
-    // const samplePath = await generateSample(path);
-
-    // if (!samplePaths.includes(samplePath)) {
-    //   samplePaths.push(samplePath);
-    // } else {
-    //   repeatPaths.push(samplePath);
-    // }
+    allSamplePaths.push(await generateSample(path));
   }
 
-  // fs.writeFileSync('samplePaths.json', JSON.stringify(samplePaths, null, 2));
-  // fs.writeFileSync('repeatPaths.json', JSON.stringify(repeatPaths, null, 2));
+  fs.writeFileSync('allSamplePaths.json', JSON.stringify(allSamplePaths, null, 2));
 })();
