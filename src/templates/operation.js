@@ -9,10 +9,8 @@ const languages = ['Java', 'Python', 'C#'];
 
 const OperationPage = ({ pageContext }) => {
   const {
-    service,
-    version,
+    pageTitle,
     operation: {
-      operationId,
       javaSnippet,
       pythonSnippet,
       csharpSnippet,
@@ -22,12 +20,6 @@ const OperationPage = ({ pageContext }) => {
       csharpModel,
     },
   } = pageContext;
-
-  const [groupName, operationName] = operationId
-    .split('_')
-    .map((name) => name.split(/(?=[A-Z])/).join(' '));
-
-  const pageTitle = `${service} - ${version} - ${groupName} - ${operationName}`;
 
   const [defaultLanguage, setDefaultLanguage] = useState('');
 

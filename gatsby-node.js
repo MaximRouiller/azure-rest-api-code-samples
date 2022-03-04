@@ -50,23 +50,26 @@ exports.createPages = ({ graphql, actions }) => {
         path: `${service}/${version}`,
         component: versionPage,
         context: {
-          service,
-          version,
+          pageTitle: `${service} - ${version}`,
           generated,
         },
       });
 
-      generated.forEach((operation) =>
+      generated.forEach((operation) => {
+        const { operationId } = operation;
+        const [groupName, operationName] = operationId
+          .split('_')
+          .map((name) => name.split(/(?=[A-Z])/).join(' '));
+
         createPage({
-          path: `${service}/${version}/${operation.operationId}`,
+          path: `${service}/${version}/${operationId}`,
           component: operationPage,
           context: {
-            service,
-            version,
+            pageTitle: `${service} - ${version} - ${groupName} - ${operationName}`,
             operation,
           },
-        })
-      );
+        });
+      });
     });
 
     services.forEach(({ service, versions }) => {
@@ -74,7 +77,7 @@ exports.createPages = ({ graphql, actions }) => {
         path: service,
         component: servicePage,
         context: {
-          service,
+          pageTitle: service,
           versions,
         },
       });

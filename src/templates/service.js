@@ -3,9 +3,7 @@ import { Link as GatsbyLink } from 'gatsby';
 import { Heading, Box, Divider, Link } from '@chakra-ui/react';
 
 const ServicePage = ({ pageContext }) => {
-  const { service, versions } = pageContext;
-
-  const pageTitle = service;
+  const { pageTitle, versions } = pageContext;
 
   return (
     <>

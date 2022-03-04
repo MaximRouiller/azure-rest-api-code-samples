@@ -3,9 +3,7 @@ import { Link as GatsbyLink } from 'gatsby';
 import { Heading, Flex, Divider, Link } from '@chakra-ui/react';
 
 const VersionPage = ({ pageContext }) => {
-  const { service, version, generated } = pageContext;
-
-  const pageTitle = `${service} - ${version}`;
+  const { pageTitle, generated } = pageContext;
 
   const groups = [];
   for (const { operationId } of generated) {
