@@ -11,7 +11,7 @@ async function generateSample(spec) {
     const version = spec.split('stable/')[1].split('/')[0];
     const specName = path.basename(spec).split('.')[0];
 
-    const samplePath = `./samples/${service}_${version}_${specName}.json`;
+    const samplePath = `./samples/${service}~${version}~${specName}.json`;
 
     const { generated } = await generator(spec);
     fs.writeFileSync(
@@ -20,7 +20,6 @@ async function generateSample(spec) {
     );
 
     console.log(samplePath);
-
     return samplePath;
   } catch (err) {
     console.error(err.toString());
