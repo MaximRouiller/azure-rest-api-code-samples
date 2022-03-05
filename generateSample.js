@@ -23,7 +23,8 @@ async function generateSample(spec) {
 
     return samplePath;
   } catch (err) {
-    console.error(err);
+    console.error(err.toString());
+    return err.toString();
   }
 }
 
