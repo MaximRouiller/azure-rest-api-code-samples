@@ -22,7 +22,7 @@ async function generateSample(spec) {
     console.log(samplePath);
     return samplePath;
   } catch (err) {
-    console.error(err.toString());
+    console.error(err);
     return err.toString();
   }
 }
