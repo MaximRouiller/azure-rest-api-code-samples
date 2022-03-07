@@ -2,8 +2,8 @@ import React from 'react';
 import { Link as GatsbyLink } from 'gatsby';
 import { Heading, Box, Divider, Link } from '@chakra-ui/react';
 
-const VersionPage = ({ pageContext }) => {
-  const { pageTitle, operationGroups } = pageContext;
+const OperationGroupPage = ({ pageContext }) => {
+  const { pageTitle, operations } = pageContext;
 
   return (
     <>
@@ -11,12 +11,12 @@ const VersionPage = ({ pageContext }) => {
       <Heading fontSize={20} mb={5}>
         {pageTitle}
       </Heading>
-      {operationGroups
+      {operations
         .sort((a, b) => a.localeCompare(b))
-        .map((group) => (
-          <Box key={group}>
-            <Link as={GatsbyLink} to={`./${group}`}>
-              {group}
+        .map((operation) => (
+          <Box key={operation}>
+            <Link as={GatsbyLink} to={`./${operation}`}>
+              {operation}
             </Link>
             <Divider my={2} />
           </Box>
@@ -25,4 +25,4 @@ const VersionPage = ({ pageContext }) => {
   );
 };
 
-export default VersionPage;
+export default OperationGroupPage;

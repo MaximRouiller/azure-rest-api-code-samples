@@ -5,6 +5,7 @@ exports.createPages = ({ graphql, actions }) => {
 
   const servicePage = path.resolve('src/templates/service.js');
   const versionPage = path.resolve('src/templates/version.js');
+  const operationGroupPage = path.resolve('src/templates/operationGroup.js');
   const operationPage = path.resolve('src/templates/operation.js');
 
   return graphql(`
@@ -46,29 +47,49 @@ exports.createPages = ({ graphql, actions }) => {
         services.push({ service, versions: [version] });
       }
 
-      createPage({
-        path: `${service}/${version}`,
-        component: versionPage,
-        context: {
-          pageTitle: `${service} - ${version}`,
-          generated,
-        },
-      });
+      const operationGroups = [];
 
       generated.forEach((operation) => {
         const { operationId } = operation;
         const [groupName, operationName] = operationId
           .split('_')
-          .map((name) => name.split(/(?=[A-Z])/).join(' '));
+          .map((name) => name.split(/(?=[A-Z])/).join('-'));
+
+        const group = operationGroups.find((group) => group.groupName === groupName);
+        if (group) {
+          group.operations.push(operationName);
+        } else {
+          operationGroups.push({ groupName, operations: [operationName] });
+        }
 
         createPage({
-          path: `${service}/${version}/${operationId}`,
+          path: `${service}/${version}/${groupName}/${operationName}`,
           component: operationPage,
           context: {
             pageTitle: `${service} - ${version} - ${groupName} - ${operationName}`,
             operation,
           },
         });
+      });
+
+      operationGroups.forEach(({ groupName, operations }) => {
+        createPage({
+          path: `${service}/${version}/${groupName}`,
+          component: operationGroupPage,
+          context: {
+            pageTitle: `${service} - ${version} - ${groupName}`,
+            operations,
+          },
+        });
+      });
+
+      createPage({
+        path: `${service}/${version}`,
+        component: versionPage,
+        context: {
+          pageTitle: `${service} - ${version}`,
+          operationGroups: operationGroups.map((group) => group.groupName),
+        },
       });
     });
 

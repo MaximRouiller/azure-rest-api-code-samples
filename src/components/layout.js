@@ -25,7 +25,7 @@ const Layout = ({ children, location }) => {
   }
 
   const crumbs = [{ crumb: '', link: '' }];
-  for (const crumb of [...new Set(location.pathname.split('/'))]) {
+  for (const crumb of location.pathname.split('/')) {
     crumbs.push({ crumb, link: crumbs[crumbs.length - 1].link + '/' + crumb });
   }
 
@@ -35,8 +35,8 @@ const Layout = ({ children, location }) => {
         <Heading fontSize={24}>Azure REST API Code Samples</Heading>
       </GatsbyLink>
       <Breadcrumb mt={2}>
-        {crumbs.slice(1).map(({ crumb, link }) => (
-          <BreadcrumbItem key={crumb} isCurrentPage={link.slice(1) === location.pathname}>
+        {crumbs.slice(crumbs[2].crumb ? 1 : 2).map(({ crumb, link }) => (
+          <BreadcrumbItem key={link} isCurrentPage={link.slice(1) === location.pathname}>
             <BreadcrumbLink as={GatsbyLink} to={link !== '/' ? link.slice(1) : link}>
               {crumb || 'Home'}
             </BreadcrumbLink>
