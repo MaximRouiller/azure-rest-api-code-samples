@@ -3,9 +3,7 @@ const path = require(`path`);
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions;
 
-  const servicePage = path.resolve('src/templates/service.js');
-  const versionPage = path.resolve('src/templates/version.js');
-  const operationGroupPage = path.resolve('src/templates/operationGroup.js');
+  const linksPage = path.resolve('src/templates/links.js');
   const operationPage = path.resolve('src/templates/operation.js');
 
   return graphql(`
@@ -75,20 +73,20 @@ exports.createPages = ({ graphql, actions }) => {
       operationGroups.forEach(({ groupName, operations }) => {
         createPage({
           path: `${service}/${version}/${groupName}`,
-          component: operationGroupPage,
+          component: linksPage,
           context: {
             pageTitle: `${service} - ${version} - ${groupName}`,
-            operations,
+            links: operations,
           },
         });
       });
 
       createPage({
         path: `${service}/${version}`,
-        component: versionPage,
+        component: linksPage,
         context: {
           pageTitle: `${service} - ${version}`,
-          operationGroups: operationGroups.map((group) => group.groupName),
+          links: operationGroups.map((group) => group.groupName),
         },
       });
     });
@@ -96,10 +94,11 @@ exports.createPages = ({ graphql, actions }) => {
     services.forEach(({ service, versions }) => {
       createPage({
         path: service,
-        component: servicePage,
+        component: linksPage,
         context: {
           pageTitle: service,
-          versions,
+          links: versions,
+          reverse: true,
         },
       });
     });
