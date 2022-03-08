@@ -4,6 +4,8 @@
   "specName": "advisor",
   "generated": [
     {
+      "groupName": "Recommendation-Metadata",
+      "operationName": "Get",
       "operationId": "RecommendationMetadata_Get",
       "javaSnippet": "// RecommendationMetadata_Get\n\nHttpClient client = HttpClient.newHttpClient();\n\nHttpRequest request = HttpRequest.newBuilder()\n  .uri(URI.create(\"https://management.azure.com/providers/Microsoft.Advisor/metadata/{name}?api-version=2020-01-01\"))\n  .header(\"Content-Type\", \"application/json\")\n  .GET()\n  .build();\n\nHttpResponse<String> response = client.send(request, BodyHandlers.ofString());\nSystem.out.println(response.statusCode());\nSystem.out.println(response.body());\n\n",
       "pythonSnippet": "# RecommendationMetadata_Get\n\n# import requests\n\nheaders = {\"Content-Type\": \"application/json\"}\n\nresponse = requests.get(\n  \"https://management.azure.com/providers/Microsoft.Advisor/metadata/{name}?api-version=2020-01-01\",\n  headers=headers)\n\nprint(response.status_code)\nprint(response.content)\n\n",
@@ -13,6 +15,8 @@
       "csharpModel": "class RecommendationMetadata_Get {\n  String id;\n  String type;\n  String name;\n  Object properties;\n}\n\n"
     },
     {
+      "groupName": "Recommendation-Metadata",
+      "operationName": "List",
       "operationId": "RecommendationMetadata_List",
       "javaSnippet": "// RecommendationMetadata_List\n\nHttpClient client = HttpClient.newHttpClient();\n\nHttpRequest request = HttpRequest.newBuilder()\n  .uri(URI.create(\"https://management.azure.com/providers/Microsoft.Advisor/metadata?api-version=2020-01-01\"))\n  .header(\"Content-Type\", \"application/json\")\n  .GET()\n  .build();\n\nHttpResponse<String> response = client.send(request, BodyHandlers.ofString());\nSystem.out.println(response.statusCode());\nSystem.out.println(response.body());\n\n",
       "pythonSnippet": "# RecommendationMetadata_List\n\n# import requests\n\nheaders = {\"Content-Type\": \"application/json\"}\n\nresponse = requests.get(\n  \"https://management.azure.com/providers/Microsoft.Advisor/metadata?api-version=2020-01-01\",\n  headers=headers)\n\nprint(response.status_code)\nprint(response.content)\n\n",
@@ -22,6 +26,8 @@
       "csharpModel": "class Value {\n  String id;\n  String type;\n  String name;\n  Object properties;\n}\n\nclass RecommendationMetadata_List {\n  List<Value> value;\n  String nextLink;\n}\n\n"
     },
     {
+      "groupName": "Configurations",
+      "operationName": "List-By-Subscription",
       "operationId": "Configurations_ListBySubscription",
       "javaSnippet": "// Configurations_ListBySubscription\n\nHttpClient client = HttpClient.newHttpClient();\n\nHttpRequest request = HttpRequest.newBuilder()\n  .uri(URI.create(\"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/configurations?api-version=2020-01-01\"))\n  .header(\"Content-Type\", \"application/json\")\n  .GET()\n  .build();\n\nHttpResponse<String> response = client.send(request, BodyHandlers.ofString());\nSystem.out.println(response.statusCode());\nSystem.out.println(response.body());\n\n",
       "pythonSnippet": "# Configurations_ListBySubscription\n\n# import requests\n\nheaders = {\"Content-Type\": \"application/json\"}\n\nresponse = requests.get(\n  \"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/configurations?api-version=2020-01-01\",\n  headers=headers)\n\nprint(response.status_code)\nprint(response.content)\n\n",
@@ -31,6 +37,8 @@
       "csharpModel": "class Value {\n  Object properties;\n}\n\nclass Configurations_ListBySubscription {\n  List<Value> value;\n  String nextLink;\n}\n\n"
     },
     {
+      "groupName": "Configurations",
+      "operationName": "Create-In-Subscription",
       "operationId": "Configurations_CreateInSubscription",
       "javaSnippet": "// Configurations_CreateInSubscription\n\nHttpClient client = HttpClient.newHttpClient();\n\nHttpRequest request = HttpRequest.newBuilder()\n  .uri(URI.create(\"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/configurations/{configurationName}?api-version=2020-01-01\"))\n  .header(\"Content-Type\", \"application/json\")\n  .PUT(BodyPublishers.ofFile(Paths.get(\"body.json\")))\n  .build();\n\nHttpResponse<String> response = client.send(request, BodyHandlers.ofString());\nSystem.out.println(response.statusCode());\nSystem.out.println(response.body());\n\n",
       "pythonSnippet": "# Configurations_CreateInSubscription\n\n# import requests\n\nheaders = {\"Content-Type\": \"application/json\"}\n\nresponse = requests.put(\n  \"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/configurations/{configurationName}?api-version=2020-01-01\",\n  headers=headers, files={\"file\": open(\"body.json\", \"r\")})\n\nprint(response.status_code)\nprint(response.content)\n\n",
@@ -41,6 +49,8 @@
       "csharpModel": "class Configurations_CreateInSubscription {\n  Object properties;\n}\n\n"
     },
     {
+      "groupName": "Configurations",
+      "operationName": "List-By-Resource-Group",
       "operationId": "Configurations_ListByResourceGroup",
       "javaSnippet": "// Configurations_ListByResourceGroup\n\nHttpClient client = HttpClient.newHttpClient();\n\nHttpRequest request = HttpRequest.newBuilder()\n  .uri(URI.create(\"https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Advisor/configurations?api-version=2020-01-01\"))\n  .header(\"Content-Type\", \"application/json\")\n  .GET()\n  .build();\n\nHttpResponse<String> response = client.send(request, BodyHandlers.ofString());\nSystem.out.println(response.statusCode());\nSystem.out.println(response.body());\n\n",
       "pythonSnippet": "# Configurations_ListByResourceGroup\n\n# import requests\n\nheaders = {\"Content-Type\": \"application/json\"}\n\nresponse = requests.get(\n  \"https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Advisor/configurations?api-version=2020-01-01\",\n  headers=headers)\n\nprint(response.status_code)\nprint(response.content)\n\n",
@@ -50,6 +60,8 @@
       "csharpModel": "class Value {\n  Object properties;\n}\n\nclass Configurations_ListByResourceGroup {\n  List<Value> value;\n  String nextLink;\n}\n\n"
     },
     {
+      "groupName": "Configurations",
+      "operationName": "Create-In-Resource-Group",
       "operationId": "Configurations_CreateInResourceGroup",
       "javaSnippet": "// Configurations_CreateInResourceGroup\n\nHttpClient client = HttpClient.newHttpClient();\n\nHttpRequest request = HttpRequest.newBuilder()\n  .uri(URI.create(\"https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Advisor/configurations/{configurationName}?api-version=2020-01-01\"))\n  .header(\"Content-Type\", \"application/json\")\n  .PUT(BodyPublishers.ofFile(Paths.get(\"body.json\")))\n  .build();\n\nHttpResponse<String> response = client.send(request, BodyHandlers.ofString());\nSystem.out.println(response.statusCode());\nSystem.out.println(response.body());\n\n",
       "pythonSnippet": "# Configurations_CreateInResourceGroup\n\n# import requests\n\nheaders = {\"Content-Type\": \"application/json\"}\n\nresponse = requests.put(\n  \"https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Advisor/configurations/{configurationName}?api-version=2020-01-01\",\n  headers=headers, files={\"file\": open(\"body.json\", \"r\")})\n\nprint(response.status_code)\nprint(response.content)\n\n",
@@ -60,18 +72,24 @@
       "csharpModel": "class Configurations_CreateInResourceGroup {\n  Object properties;\n}\n\n"
     },
     {
+      "groupName": "Recommendations",
+      "operationName": "Generate",
       "operationId": "Recommendations_Generate",
       "javaSnippet": "// Recommendations_Generate\n\nHttpClient client = HttpClient.newHttpClient();\n\nHttpRequest request = HttpRequest.newBuilder()\n  .uri(URI.create(\"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/generateRecommendations?api-version=2020-01-01\"))\n  .header(\"Content-Type\", \"application/json\")\n  .POST()\n  .build();\n\nHttpResponse<String> response = client.send(request, BodyHandlers.ofString());\nSystem.out.println(response.statusCode());\nSystem.out.println(response.body());\n\n",
       "pythonSnippet": "# Recommendations_Generate\n\n# import requests\n\nheaders = {\"Content-Type\": \"application/json\"}\n\nresponse = requests.post(\n  \"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/generateRecommendations?api-version=2020-01-01\",\n  headers=headers)\n\nprint(response.status_code)\nprint(response.content)\n\n",
       "csharpSnippet": "// Recommendations_Generate\n\nHttpClient client = new HttpClient();\nHttpRequestMessage req = new HttpRequestMessage(HttpMethod.Post, \"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/generateRecommendations?api-version=2020-01-01\");\nreq.Content = new StringContent();\n\nHttpResponseMessage httpResponseMessage = await client.SendAsync(req);\nhttpResponseMessage.EnsureSuccessStatusCode();\nHttpContent httpContent = httpResponseMessage.Content;\nstring responseString = await httpContent.ReadAsStringAsync();\nstring responseStatus = httpResponseMessage.StatusCode.ToString();\nConsole.WriteLine(responseString);\nConsole.WriteLine(responseStatus);\n\n"
     },
     {
+      "groupName": "Recommendations",
+      "operationName": "Get-Generate-Status",
       "operationId": "Recommendations_GetGenerateStatus",
       "javaSnippet": "// Recommendations_GetGenerateStatus\n\nHttpClient client = HttpClient.newHttpClient();\n\nHttpRequest request = HttpRequest.newBuilder()\n  .uri(URI.create(\"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/generateRecommendations/{operationId}?api-version=2020-01-01\"))\n  .header(\"Content-Type\", \"application/json\")\n  .GET()\n  .build();\n\nHttpResponse<String> response = client.send(request, BodyHandlers.ofString());\nSystem.out.println(response.statusCode());\nSystem.out.println(response.body());\n\n",
       "pythonSnippet": "# Recommendations_GetGenerateStatus\n\n# import requests\n\nheaders = {\"Content-Type\": \"application/json\"}\n\nresponse = requests.get(\n  \"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/generateRecommendations/{operationId}?api-version=2020-01-01\",\n  headers=headers)\n\nprint(response.status_code)\nprint(response.content)\n\n",
       "csharpSnippet": "// Recommendations_GetGenerateStatus\n\nHttpClient client = new HttpClient();\nHttpRequestMessage req = new HttpRequestMessage(HttpMethod.Get, \"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/generateRecommendations/{operationId}?api-version=2020-01-01\");\nreq.Content = new StringContent();\n\nHttpResponseMessage httpResponseMessage = await client.SendAsync(req);\nhttpResponseMessage.EnsureSuccessStatusCode();\nHttpContent httpContent = httpResponseMessage.Content;\nstring responseString = await httpContent.ReadAsStringAsync();\nstring responseStatus = httpResponseMessage.StatusCode.ToString();\nConsole.WriteLine(responseString);\nConsole.WriteLine(responseStatus);\n\n"
     },
     {
+      "groupName": "Recommendations",
+      "operationName": "List",
       "operationId": "Recommendations_List",
       "javaSnippet": "// Recommendations_List\n\nHttpClient client = HttpClient.newHttpClient();\n\nHttpRequest request = HttpRequest.newBuilder()\n  .uri(URI.create(\"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/recommendations?api-version=2020-01-01\"))\n  .header(\"Content-Type\", \"application/json\")\n  .GET()\n  .build();\n\nHttpResponse<String> response = client.send(request, BodyHandlers.ofString());\nSystem.out.println(response.statusCode());\nSystem.out.println(response.body());\n\n",
       "pythonSnippet": "# Recommendations_List\n\n# import requests\n\nheaders = {\"Content-Type\": \"application/json\"}\n\nresponse = requests.get(\n  \"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/recommendations?api-version=2020-01-01\",\n  headers=headers)\n\nprint(response.status_code)\nprint(response.content)\n\n",
@@ -81,6 +99,8 @@
       "csharpModel": "class Value {\n  Object properties;\n}\n\nclass Recommendations_List {\n  String nextLink;\n  List<Value> value;\n}\n\n"
     },
     {
+      "groupName": "Operations",
+      "operationName": "List",
       "operationId": "Operations_List",
       "javaSnippet": "// Operations_List\n\nHttpClient client = HttpClient.newHttpClient();\n\nHttpRequest request = HttpRequest.newBuilder()\n  .uri(URI.create(\"https://management.azure.com/providers/Microsoft.Advisor/operations?api-version=2020-01-01\"))\n  .header(\"Content-Type\", \"application/json\")\n  .GET()\n  .build();\n\nHttpResponse<String> response = client.send(request, BodyHandlers.ofString());\nSystem.out.println(response.statusCode());\nSystem.out.println(response.body());\n\n",
       "pythonSnippet": "# Operations_List\n\n# import requests\n\nheaders = {\"Content-Type\": \"application/json\"}\n\nresponse = requests.get(\n  \"https://management.azure.com/providers/Microsoft.Advisor/operations?api-version=2020-01-01\",\n  headers=headers)\n\nprint(response.status_code)\nprint(response.content)\n\n",
@@ -90,6 +110,8 @@
       "csharpModel": "class Value {\n  String name;\n  Object display;\n}\n\nclass Operations_List {\n  String nextLink;\n  List<Value> value;\n}\n\n"
     },
     {
+      "groupName": "Recommendations",
+      "operationName": "Get",
       "operationId": "Recommendations_Get",
       "javaSnippet": "// Recommendations_Get\n\nHttpClient client = HttpClient.newHttpClient();\n\nHttpRequest request = HttpRequest.newBuilder()\n  .uri(URI.create(\"https://management.azure.com/{resourceUri}/providers/Microsoft.Advisor/recommendations/{recommendationId}?api-version=2020-01-01\"))\n  .header(\"Content-Type\", \"application/json\")\n  .GET()\n  .build();\n\nHttpResponse<String> response = client.send(request, BodyHandlers.ofString());\nSystem.out.println(response.statusCode());\nSystem.out.println(response.body());\n\n",
       "pythonSnippet": "# Recommendations_Get\n\n# import requests\n\nheaders = {\"Content-Type\": \"application/json\"}\n\nresponse = requests.get(\n  \"https://management.azure.com/{resourceUri}/providers/Microsoft.Advisor/recommendations/{recommendationId}?api-version=2020-01-01\",\n  headers=headers)\n\nprint(response.status_code)\nprint(response.content)\n\n",
@@ -99,6 +121,8 @@
       "csharpModel": "class Recommendations_Get {\n  Object properties;\n}\n\n"
     },
     {
+      "groupName": "Suppressions",
+      "operationName": "Get",
       "operationId": "Suppressions_Get",
       "javaSnippet": "// Suppressions_Get\n\nHttpClient client = HttpClient.newHttpClient();\n\nHttpRequest request = HttpRequest.newBuilder()\n  .uri(URI.create(\"https://management.azure.com/{resourceUri}/providers/Microsoft.Advisor/recommendations/{recommendationId}/suppressions/{name}?api-version=2020-01-01\"))\n  .header(\"Content-Type\", \"application/json\")\n  .GET()\n  .build();\n\nHttpResponse<String> response = client.send(request, BodyHandlers.ofString());\nSystem.out.println(response.statusCode());\nSystem.out.println(response.body());\n\n",
       "pythonSnippet": "# Suppressions_Get\n\n# import requests\n\nheaders = {\"Content-Type\": \"application/json\"}\n\nresponse = requests.get(\n  \"https://management.azure.com/{resourceUri}/providers/Microsoft.Advisor/recommendations/{recommendationId}/suppressions/{name}?api-version=2020-01-01\",\n  headers=headers)\n\nprint(response.status_code)\nprint(response.content)\n\n",
@@ -108,6 +132,8 @@
       "csharpModel": "class Suppressions_Get {\n  Object properties;\n}\n\n"
     },
     {
+      "groupName": "Suppressions",
+      "operationName": "Create",
       "operationId": "Suppressions_Create",
       "javaSnippet": "// Suppressions_Create\n\nHttpClient client = HttpClient.newHttpClient();\n\nHttpRequest request = HttpRequest.newBuilder()\n  .uri(URI.create(\"https://management.azure.com/{resourceUri}/providers/Microsoft.Advisor/recommendations/{recommendationId}/suppressions/{name}?api-version=2020-01-01\"))\n  .header(\"Content-Type\", \"application/json\")\n  .PUT(BodyPublishers.ofFile(Paths.get(\"body.json\")))\n  .build();\n\nHttpResponse<String> response = client.send(request, BodyHandlers.ofString());\nSystem.out.println(response.statusCode());\nSystem.out.println(response.body());\n\n",
       "pythonSnippet": "# Suppressions_Create\n\n# import requests\n\nheaders = {\"Content-Type\": \"application/json\"}\n\nresponse = requests.put(\n  \"https://management.azure.com/{resourceUri}/providers/Microsoft.Advisor/recommendations/{recommendationId}/suppressions/{name}?api-version=2020-01-01\",\n  headers=headers, files={\"file\": open(\"body.json\", \"r\")})\n\nprint(response.status_code)\nprint(response.content)\n\n",
@@ -118,12 +144,16 @@
       "csharpModel": "class Suppressions_Create {\n  Object properties;\n}\n\n"
     },
     {
+      "groupName": "Suppressions",
+      "operationName": "Delete",
       "operationId": "Suppressions_Delete",
       "javaSnippet": "// Suppressions_Delete\n\nHttpClient client = HttpClient.newHttpClient();\n\nHttpRequest request = HttpRequest.newBuilder()\n  .uri(URI.create(\"https://management.azure.com/{resourceUri}/providers/Microsoft.Advisor/recommendations/{recommendationId}/suppressions/{name}?api-version=2020-01-01\"))\n  .header(\"Content-Type\", \"application/json\")\n  .DELETE()\n  .build();\n\nHttpResponse<String> response = client.send(request, BodyHandlers.ofString());\nSystem.out.println(response.statusCode());\nSystem.out.println(response.body());\n\n",
       "pythonSnippet": "# Suppressions_Delete\n\n# import requests\n\nheaders = {\"Content-Type\": \"application/json\"}\n\nresponse = requests.delete(\n  \"https://management.azure.com/{resourceUri}/providers/Microsoft.Advisor/recommendations/{recommendationId}/suppressions/{name}?api-version=2020-01-01\",\n  headers=headers)\n\nprint(response.status_code)\nprint(response.content)\n\n",
       "csharpSnippet": "// Suppressions_Delete\n\nHttpClient client = new HttpClient();\nHttpRequestMessage req = new HttpRequestMessage(HttpMethod.Delete, \"https://management.azure.com/{resourceUri}/providers/Microsoft.Advisor/recommendations/{recommendationId}/suppressions/{name}?api-version=2020-01-01\");\nreq.Content = new StringContent();\n\nHttpResponseMessage httpResponseMessage = await client.SendAsync(req);\nhttpResponseMessage.EnsureSuccessStatusCode();\nHttpContent httpContent = httpResponseMessage.Content;\nstring responseString = await httpContent.ReadAsStringAsync();\nstring responseStatus = httpResponseMessage.StatusCode.ToString();\nConsole.WriteLine(responseString);\nConsole.WriteLine(responseStatus);\n\n"
     },
     {
+      "groupName": "Suppressions",
+      "operationName": "List",
       "operationId": "Suppressions_List",
       "javaSnippet": "// Suppressions_List\n\nHttpClient client = HttpClient.newHttpClient();\n\nHttpRequest request = HttpRequest.newBuilder()\n  .uri(URI.create(\"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/suppressions?api-version=2020-01-01\"))\n  .header(\"Content-Type\", \"application/json\")\n  .GET()\n  .build();\n\nHttpResponse<String> response = client.send(request, BodyHandlers.ofString());\nSystem.out.println(response.statusCode());\nSystem.out.println(response.body());\n\n",
       "pythonSnippet": "# Suppressions_List\n\n# import requests\n\nheaders = {\"Content-Type\": \"application/json\"}\n\nresponse = requests.get(\n  \"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/suppressions?api-version=2020-01-01\",\n  headers=headers)\n\nprint(response.status_code)\nprint(response.content)\n\n",

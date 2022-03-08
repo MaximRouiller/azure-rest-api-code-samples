@@ -15,7 +15,8 @@ exports.createPages = ({ graphql, actions }) => {
             version
             specName
             generated {
-              operationId
+              groupName
+              operationName
               csharpModel
               csharpSnippet
               javaModel
@@ -48,10 +49,7 @@ exports.createPages = ({ graphql, actions }) => {
       const operationGroups = [];
 
       generated.forEach((operation) => {
-        const { operationId } = operation;
-        const [groupName, operationName] = operationId
-          .split('_')
-          .map((name) => name.split(/(?=[A-Z])/).join('-'));
+        const { groupName, operationName } = operation;
 
         const group = operationGroups.find((group) => group.groupName === groupName);
         if (group) {

@@ -13,7 +13,15 @@ async function generateSample(spec) {
 
     const samplePath = `./samples/${service}~${version}~${specName}.json`;
 
-    const { generated } = await generator(spec);
+    const generated = (await generator(spec)).generated.map((operation) => {
+      const [groupName, operationName] = capitalise(operation.operationId).split('_');
+      return {
+        groupName: splitAndJoin(groupName),
+        operationName: operationName ? splitAndJoin(operationName) : splitAndJoin(groupName),
+        ...operation,
+      };
+    });
+
     fs.writeFileSync(
       samplePath,
       JSON.stringify({ service, version, specName, generated }, null, 2)
@@ -29,3 +37,9 @@ async function generateSample(spec) {
 
 // Pass the url/path in as a third command line argument to run directly -> node generateSample spec
 if (process.argv[2]) generateSample(process.argv[2]);
+
+// Utilities
+
+const capitalise = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+
+const splitAndJoin = (s, split = /(?=[A-Z])/, join = '-') => s.split(split).join(join);
