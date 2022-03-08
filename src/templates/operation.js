@@ -38,28 +38,31 @@ const OperationPage = ({ pageContext }) => {
       <Heading fontSize={20} mb={5}>
         {pageTitle}
       </Heading>
-      <Heading fontSize={15} mb={2}>
-        Request
-      </Heading>
+
       {defaultLanguage && (
-        <Tabs defaultIndex={languages.indexOf(defaultLanguage)} onChange={onChangeTab} mb={2}>
-          <TabList>
-            <Tab>Java</Tab>
-            <Tab>Python</Tab>
-            <Tab>C#</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <SamplePanel sample={javaSnippet} language='java' />
-            </TabPanel>
-            <TabPanel>
-              <SamplePanel sample={pythonSnippet} language='python' />
-            </TabPanel>
-            <TabPanel>
-              <SamplePanel sample={csharpSnippet} language='csharp' />
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+        <>
+          <Heading fontSize={15} mb={2}>
+            Request
+          </Heading>
+          <Tabs defaultIndex={languages.indexOf(defaultLanguage)} onChange={onChangeTab} mb={2}>
+            <TabList>
+              <Tab>Java</Tab>
+              <Tab>Python</Tab>
+              <Tab>C#</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <SamplePanel sample={javaSnippet} language='java' />
+              </TabPanel>
+              <TabPanel>
+                <SamplePanel sample={pythonSnippet} language='python' />
+              </TabPanel>
+              <TabPanel>
+                <SamplePanel sample={csharpSnippet} language='csharp' />
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        </>
       )}
 
       {requestBody && (
