@@ -1,16 +1,15 @@
 import React from 'react';
 import { Link as GatsbyLink } from 'gatsby';
-import { Heading, Box, Divider, Link } from '@chakra-ui/react';
+import { Box, Divider, Link } from '@chakra-ui/react';
+
+import TitleAndHeading from '../components/titleAndHeading';
 
 const LinksPage = ({ pageContext }) => {
   const { pageTitle, links, reverse } = pageContext;
 
   return (
     <>
-      <title>{pageTitle} | Azure REST API Code Samples</title>
-      <Heading fontSize={20} mb={5}>
-        {pageTitle}
-      </Heading>
+      <TitleAndHeading title={pageTitle} />
       {links
         .sort((a, b) => (reverse ? b.localeCompare(a) : a.localeCompare(b)))
         .map((link) => (

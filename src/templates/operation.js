@@ -5,6 +5,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
+import TitleAndHeading from '../components/titleAndHeading';
+
 const languages = ['Java', 'Python', 'C#'];
 
 const OperationPage = ({ pageContext }) => {
@@ -34,10 +36,7 @@ const OperationPage = ({ pageContext }) => {
 
   return (
     <>
-      <title>{pageTitle} | Azure REST API Code Samples</title>
-      <Heading fontSize={20} mb={5}>
-        {pageTitle}
-      </Heading>
+      <TitleAndHeading title={pageTitle} />
 
       {defaultLanguage && (
         <>
