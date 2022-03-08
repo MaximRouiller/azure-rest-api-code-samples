@@ -38,7 +38,10 @@ const walk = function (dir) {
 
 const allSpecPaths = walk(dir).filter(
   (path) =>
-    path.includes('Microsoft') && path.includes('stable') && path.includes('resource-manager')
+    path.includes('Microsoft') &&
+    path.includes('stable') &&
+    path.includes('resource-manager') &&
+    Object.keys(JSON.parse(fs.readFileSync(path)).paths).length !== 0
 );
 fs.writeFileSync('allSpecPaths.json', JSON.stringify(allSpecPaths, null, 2));
 
