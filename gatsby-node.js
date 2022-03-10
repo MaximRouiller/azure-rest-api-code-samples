@@ -75,6 +75,7 @@ exports.createPages = ({ graphql, actions }) => {
           context: {
             pageTitle: `${service} - ${version} - ${groupName}`,
             links: operations,
+            joinWithSpaces: true,
           },
         });
       });
@@ -85,6 +86,7 @@ exports.createPages = ({ graphql, actions }) => {
         context: {
           pageTitle: `${service} - ${version}`,
           links: operationGroups.map((group) => group.groupName),
+          joinWithSpaces: true,
         },
       });
     });

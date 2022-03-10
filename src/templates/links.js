@@ -5,7 +5,7 @@ import { Box, Divider, Link } from '@chakra-ui/react';
 import TitleAndHeading from '../components/titleAndHeading';
 
 const LinksPage = ({ pageContext }) => {
-  const { pageTitle, links, reverse } = pageContext;
+  const { pageTitle, links, reverse, joinWithSpaces } = pageContext;
 
   return (
     <>
@@ -15,7 +15,7 @@ const LinksPage = ({ pageContext }) => {
         .map((link) => (
           <Box key={link}>
             <Link as={GatsbyLink} to={`./${link}`}>
-              {link}
+              {joinWithSpaces ? link.split('-').join(' ') : link}
             </Link>
             <Divider my={2} />
           </Box>
