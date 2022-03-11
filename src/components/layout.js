@@ -38,7 +38,9 @@ const Layout = ({ children, location }) => {
         {crumbs.slice(crumbs[2].crumb ? 1 : 2).map(({ crumb, link }) => (
           <BreadcrumbItem key={link} isCurrentPage={link.slice(1) === location.pathname}>
             <BreadcrumbLink as={GatsbyLink} to={link !== '/' ? link.slice(1) : link}>
-              {crumb || 'Home'}
+              {(crumbs.findIndex((crumb) => crumb.link === link) > 3
+                ? crumb.replaceAll('-', ' ')
+                : crumb) || 'Home'}
             </BreadcrumbLink>
           </BreadcrumbItem>
         ))}
