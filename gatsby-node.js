@@ -62,7 +62,9 @@ exports.createPages = ({ graphql, actions }) => {
           path: `${service}/${version}/${groupName}/${operationName}`,
           component: operationPage,
           context: {
-            pageTitle: `${service} - ${version} - ${groupName} - ${operationName}`,
+            pageTitle: `${service} - ${version} - ${splitAndJoin(groupName)} - ${splitAndJoin(
+              operationName
+            )}`,
             operation,
           },
         });
@@ -73,7 +75,7 @@ exports.createPages = ({ graphql, actions }) => {
           path: `${service}/${version}/${groupName}`,
           component: linksPage,
           context: {
-            pageTitle: `${service} - ${version} - ${groupName}`,
+            pageTitle: `${service} - ${version} - ${splitAndJoin(groupName)}`,
             links: operations,
             joinWithSpaces: true,
           },
@@ -104,3 +106,7 @@ exports.createPages = ({ graphql, actions }) => {
     });
   });
 };
+
+// Utilities
+
+const splitAndJoin = (s, split = '-', join = ' ') => s.split(split).join(join);
