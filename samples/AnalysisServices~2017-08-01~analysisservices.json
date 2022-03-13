@@ -10,9 +10,9 @@
       "javaSnippet": "// Servers_GetDetails\n\nHttpClient client = HttpClient.newHttpClient();\n\nHttpRequest request = HttpRequest.newBuilder()\n  .uri(URI.create(\"https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AnalysisServices/servers/{serverName}?api-version=2017-08-01\"))\n  .header(\"Content-Type\", \"application/json\")\n  .GET()\n  .build();\n\nHttpResponse<String> response = client.send(request, BodyHandlers.ofString());\nSystem.out.println(response.statusCode());\nSystem.out.println(response.body());\n\n",
       "pythonSnippet": "# Servers_GetDetails\n\n# import requests\n\nheaders = {\"Content-Type\": \"application/json\"}\n\nresponse = requests.get(\n  \"https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AnalysisServices/servers/{serverName}?api-version=2017-08-01\",\n  headers=headers)\n\nprint(response.status_code)\nprint(response.content)\n\n",
       "csharpSnippet": "// Servers_GetDetails\n\nHttpClient client = new HttpClient();\nHttpRequestMessage req = new HttpRequestMessage(HttpMethod.Get, \"https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AnalysisServices/servers/{serverName}?api-version=2017-08-01\");\nreq.Content = new StringContent();\n\nHttpResponseMessage httpResponseMessage = await client.SendAsync(req);\nhttpResponseMessage.EnsureSuccessStatusCode();\nHttpContent httpContent = httpResponseMessage.Content;\nstring responseString = await httpContent.ReadAsStringAsync();\nstring responseStatus = httpResponseMessage.StatusCode.ToString();\nConsole.WriteLine(responseString);\nConsole.WriteLine(responseStatus);\n\n",
-      "javaModel": "class Servers_GetDetails {\n  Object properties;\n}\n\n",
-      "pythonModel": "class Servers_GetDetails:\n\tproperties = {}\n\n",
-      "csharpModel": "class Servers_GetDetails {\n  Object properties;\n}\n\n"
+      "javaModel": "class Servers_GetDetails {\n  Object properties;\n  String id;\n  String name;\n  String type;\n  String location;\n  Object sku;\n  Object tags;\n}\n\n",
+      "pythonModel": "class Servers_GetDetails:\n\tproperties = {}\n\tid = \"\"\n\tname = \"\"\n\ttype = \"\"\n\tlocation = \"\"\n\tsku = {}\n\ttags = {}\n\n",
+      "csharpModel": "class Servers_GetDetails {\n  Object properties;\n  String id;\n  String name;\n  String type;\n  String location;\n  Object sku;\n  Object tags;\n}\n\n"
     },
     {
       "groupName": "Servers",
@@ -21,10 +21,10 @@
       "javaSnippet": "// Servers_Create\n\nHttpClient client = HttpClient.newHttpClient();\n\nHttpRequest request = HttpRequest.newBuilder()\n  .uri(URI.create(\"https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AnalysisServices/servers/{serverName}?api-version=2017-08-01\"))\n  .header(\"Content-Type\", \"application/json\")\n  .PUT(BodyPublishers.ofFile(Paths.get(\"body.json\")))\n  .build();\n\nHttpResponse<String> response = client.send(request, BodyHandlers.ofString());\nSystem.out.println(response.statusCode());\nSystem.out.println(response.body());\n\n",
       "pythonSnippet": "# Servers_Create\n\n# import requests\n\nheaders = {\"Content-Type\": \"application/json\"}\n\nresponse = requests.put(\n  \"https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AnalysisServices/servers/{serverName}?api-version=2017-08-01\",\n  headers=headers, files={\"file\": open(\"body.json\", \"r\")})\n\nprint(response.status_code)\nprint(response.content)\n\n",
       "csharpSnippet": "// Servers_Create\n\nHttpClient client = new HttpClient();\nHttpRequestMessage req = new HttpRequestMessage(HttpMethod.Put, \"https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AnalysisServices/servers/{serverName}?api-version=2017-08-01\");\nreq.Content = new StringContent(System.IO.File.ReadAllText(@\"body.json\"), Encoding.UTF8, \"application/json\");\n\nHttpResponseMessage httpResponseMessage = await client.SendAsync(req);\nhttpResponseMessage.EnsureSuccessStatusCode();\nHttpContent httpContent = httpResponseMessage.Content;\nstring responseString = await httpContent.ReadAsStringAsync();\nstring responseStatus = httpResponseMessage.StatusCode.ToString();\nConsole.WriteLine(responseString);\nConsole.WriteLine(responseStatus);\n\n",
-      "requestBody": "{\n  \"properties\": {}\n}",
-      "javaModel": "class Servers_Create {\n  Object properties;\n}\n\n",
-      "pythonModel": "class Servers_Create:\n\tproperties = {}\n\n",
-      "csharpModel": "class Servers_Create {\n  Object properties;\n}\n\n"
+      "requestBody": "{\n  \"properties\": {},\n  \"location\": \"\",\n  \"sku\": {},\n  \"tags\": {}\n}",
+      "javaModel": "class Servers_Create {\n  Object properties;\n  String id;\n  String name;\n  String type;\n  String location;\n  Object sku;\n  Object tags;\n}\n\n",
+      "pythonModel": "class Servers_Create:\n\tproperties = {}\n\tid = \"\"\n\tname = \"\"\n\ttype = \"\"\n\tlocation = \"\"\n\tsku = {}\n\ttags = {}\n\n",
+      "csharpModel": "class Servers_Create {\n  Object properties;\n  String id;\n  String name;\n  String type;\n  String location;\n  Object sku;\n  Object tags;\n}\n\n"
     },
     {
       "groupName": "Servers",
@@ -42,9 +42,9 @@
       "pythonSnippet": "# Servers_Update\n\n# import requests\n\nheaders = {\"Content-Type\": \"application/json\"}\n\nresponse = requests.patch(\n  \"https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AnalysisServices/servers/{serverName}?api-version=2017-08-01\",\n  headers=headers, files={\"file\": open(\"body.json\", \"r\")})\n\nprint(response.status_code)\nprint(response.content)\n\n",
       "csharpSnippet": "// Servers_Update\n\nHttpClient client = new HttpClient();\nHttpRequestMessage req = new HttpRequestMessage(HttpMethod.Patch, \"https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AnalysisServices/servers/{serverName}?api-version=2017-08-01\");\nreq.Content = new StringContent(System.IO.File.ReadAllText(@\"body.json\"), Encoding.UTF8, \"application/json\");\n\nHttpResponseMessage httpResponseMessage = await client.SendAsync(req);\nhttpResponseMessage.EnsureSuccessStatusCode();\nHttpContent httpContent = httpResponseMessage.Content;\nstring responseString = await httpContent.ReadAsStringAsync();\nstring responseStatus = httpResponseMessage.StatusCode.ToString();\nConsole.WriteLine(responseString);\nConsole.WriteLine(responseStatus);\n\n",
       "requestBody": "{\n  \"sku\": {},\n  \"tags\": {},\n  \"properties\": {}\n}",
-      "javaModel": "class Servers_Update {\n  Object properties;\n}\n\n",
-      "pythonModel": "class Servers_Update:\n\tproperties = {}\n\n",
-      "csharpModel": "class Servers_Update {\n  Object properties;\n}\n\n"
+      "javaModel": "class Servers_Update {\n  Object properties;\n  String id;\n  String name;\n  String type;\n  String location;\n  Object sku;\n  Object tags;\n}\n\n",
+      "pythonModel": "class Servers_Update:\n\tproperties = {}\n\tid = \"\"\n\tname = \"\"\n\ttype = \"\"\n\tlocation = \"\"\n\tsku = {}\n\ttags = {}\n\n",
+      "csharpModel": "class Servers_Update {\n  Object properties;\n  String id;\n  String name;\n  String type;\n  String location;\n  Object sku;\n  Object tags;\n}\n\n"
     },
     {
       "groupName": "Servers",
@@ -69,9 +69,9 @@
       "javaSnippet": "// Servers_ListByResourceGroup\n\nHttpClient client = HttpClient.newHttpClient();\n\nHttpRequest request = HttpRequest.newBuilder()\n  .uri(URI.create(\"https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AnalysisServices/servers?api-version=2017-08-01\"))\n  .header(\"Content-Type\", \"application/json\")\n  .GET()\n  .build();\n\nHttpResponse<String> response = client.send(request, BodyHandlers.ofString());\nSystem.out.println(response.statusCode());\nSystem.out.println(response.body());\n\n",
       "pythonSnippet": "# Servers_ListByResourceGroup\n\n# import requests\n\nheaders = {\"Content-Type\": \"application/json\"}\n\nresponse = requests.get(\n  \"https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AnalysisServices/servers?api-version=2017-08-01\",\n  headers=headers)\n\nprint(response.status_code)\nprint(response.content)\n\n",
       "csharpSnippet": "// Servers_ListByResourceGroup\n\nHttpClient client = new HttpClient();\nHttpRequestMessage req = new HttpRequestMessage(HttpMethod.Get, \"https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AnalysisServices/servers?api-version=2017-08-01\");\nreq.Content = new StringContent();\n\nHttpResponseMessage httpResponseMessage = await client.SendAsync(req);\nhttpResponseMessage.EnsureSuccessStatusCode();\nHttpContent httpContent = httpResponseMessage.Content;\nstring responseString = await httpContent.ReadAsStringAsync();\nstring responseStatus = httpResponseMessage.StatusCode.ToString();\nConsole.WriteLine(responseString);\nConsole.WriteLine(responseStatus);\n\n",
-      "javaModel": "class Value {\n  Object properties;\n}\n\nclass Servers_ListByResourceGroup {\n  List<Value> value;\n}\n\n",
-      "pythonModel": "class _Value:\n\tproperties = {}\n\nclass Servers_ListByResourceGroup:\n\tvalue = [_Value()]\n\tValue = _Value\n\n",
-      "csharpModel": "class Value {\n  Object properties;\n}\n\nclass Servers_ListByResourceGroup {\n  List<Value> value;\n}\n\n"
+      "javaModel": "class Value {\n  Object properties;\n  String id;\n  String name;\n  String type;\n  String location;\n  Object sku;\n  Object tags;\n}\n\nclass Servers_ListByResourceGroup {\n  List<Value> value;\n}\n\n",
+      "pythonModel": "class _Value:\n\tproperties = {}\n\tid = \"\"\n\tname = \"\"\n\ttype = \"\"\n\tlocation = \"\"\n\tsku = {}\n\ttags = {}\n\nclass Servers_ListByResourceGroup:\n\tvalue = [_Value()]\n\tValue = _Value\n\n",
+      "csharpModel": "class Value {\n  Object properties;\n  String id;\n  String name;\n  String type;\n  String location;\n  Object sku;\n  Object tags;\n}\n\nclass Servers_ListByResourceGroup {\n  List<Value> value;\n}\n\n"
     },
     {
       "groupName": "Servers",
@@ -80,9 +80,9 @@
       "javaSnippet": "// Servers_List\n\nHttpClient client = HttpClient.newHttpClient();\n\nHttpRequest request = HttpRequest.newBuilder()\n  .uri(URI.create(\"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.AnalysisServices/servers?api-version=2017-08-01\"))\n  .header(\"Content-Type\", \"application/json\")\n  .GET()\n  .build();\n\nHttpResponse<String> response = client.send(request, BodyHandlers.ofString());\nSystem.out.println(response.statusCode());\nSystem.out.println(response.body());\n\n",
       "pythonSnippet": "# Servers_List\n\n# import requests\n\nheaders = {\"Content-Type\": \"application/json\"}\n\nresponse = requests.get(\n  \"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.AnalysisServices/servers?api-version=2017-08-01\",\n  headers=headers)\n\nprint(response.status_code)\nprint(response.content)\n\n",
       "csharpSnippet": "// Servers_List\n\nHttpClient client = new HttpClient();\nHttpRequestMessage req = new HttpRequestMessage(HttpMethod.Get, \"https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.AnalysisServices/servers?api-version=2017-08-01\");\nreq.Content = new StringContent();\n\nHttpResponseMessage httpResponseMessage = await client.SendAsync(req);\nhttpResponseMessage.EnsureSuccessStatusCode();\nHttpContent httpContent = httpResponseMessage.Content;\nstring responseString = await httpContent.ReadAsStringAsync();\nstring responseStatus = httpResponseMessage.StatusCode.ToString();\nConsole.WriteLine(responseString);\nConsole.WriteLine(responseStatus);\n\n",
-      "javaModel": "class Value {\n  Object properties;\n}\n\nclass Servers_List {\n  List<Value> value;\n}\n\n",
-      "pythonModel": "class _Value:\n\tproperties = {}\n\nclass Servers_List:\n\tvalue = [_Value()]\n\tValue = _Value\n\n",
-      "csharpModel": "class Value {\n  Object properties;\n}\n\nclass Servers_List {\n  List<Value> value;\n}\n\n"
+      "javaModel": "class Value {\n  Object properties;\n  String id;\n  String name;\n  String type;\n  String location;\n  Object sku;\n  Object tags;\n}\n\nclass Servers_List {\n  List<Value> value;\n}\n\n",
+      "pythonModel": "class _Value:\n\tproperties = {}\n\tid = \"\"\n\tname = \"\"\n\ttype = \"\"\n\tlocation = \"\"\n\tsku = {}\n\ttags = {}\n\nclass Servers_List:\n\tvalue = [_Value()]\n\tValue = _Value\n\n",
+      "csharpModel": "class Value {\n  Object properties;\n  String id;\n  String name;\n  String type;\n  String location;\n  Object sku;\n  Object tags;\n}\n\nclass Servers_List {\n  List<Value> value;\n}\n\n"
     },
     {
       "groupName": "Servers",
