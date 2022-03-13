@@ -15,7 +15,7 @@ const LinksPage = ({ pageContext }) => {
         .map((link) => (
           <Box key={link}>
             <Link as={GatsbyLink} to={`./${link}`}>
-              {joinWithSpaces ? link.split('-').join(' ') : link}
+              {joinWithSpaces ? link.replaceAll('-', ' ') : link}
             </Link>
             <Divider my={2} />
           </Box>
