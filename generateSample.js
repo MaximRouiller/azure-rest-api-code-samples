@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const generator = require('../OACodeSampleGenerator'); // a temporary solution until we release the package on npm
+const generator = require('oacodesamplegenerator');
 
 module.exports = generateSample;
 

@@ -26,6 +26,7 @@
     "gatsby-plugin-react-helmet": "^5.9.0",
     "gatsby-source-filesystem": "^4.7.0",
     "gatsby-transformer-json": "^4.7.0",
+    "oacodesamplegenerator": "^1.0.0",
     "react": "^17.0.1",
     "react-copy-to-clipboard": "^5.0.4",
     "react-dom": "^17.0.1",
