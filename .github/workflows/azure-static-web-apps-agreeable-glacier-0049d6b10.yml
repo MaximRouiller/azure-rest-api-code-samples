@@ -24,6 +24,10 @@ jobs:
         with:
           submodules: true
           path: ./src
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.1.0
+        with:
+          node-version: ">=16.14.2"
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
