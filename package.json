@@ -15,7 +15,8 @@
     "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
-    "clean": "gatsby clean"
+    "clean": "gatsby clean",
+    "build:azure": "node generateAllSamples.js && gatsby build"
   },
   "dependencies": {
     "@chakra-ui/gatsby-plugin": "^2.0.3",
